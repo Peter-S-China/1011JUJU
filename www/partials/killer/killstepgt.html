@@ -1,0 +1,400 @@
+<script src="../jquery.js"></script>
+<script>
+    $(document).ready(function(){
+                      $("#FG").click(function(){
+                                     $(".panel1").slideToggle("slow");
+                                     
+                                     });
+                      $("#KILL").click(function(){
+                                       $(".panel2").slideToggle("slow");
+                                      
+                                       });
+                      $("#JC").click(function(){
+                                     $(".panel3").slideToggle("slow");
+                                     
+                                      });
+                      $("#PM").click(function(){
+                                     $(".panel4").slideToggle("slow");
+                                     
+                                      
+                                     });
+                      
+                      
+                      
+                      getgamejclist();
+                      getgamekillerlist();
+                      getgamepmlist();
+                      
+                      });
+                      
+//杀人游戏第二步骤 获取参与游戏人员警察角色分类列表
+function getgamejclist(){
+    //$("#jcuser").empty();
+    
+                          
+var gameuserurl = "http://203.100.80.135:8080/JujuDemo/servlet/Sendkillalllist?gamehomenum="+localStorage.g_gamenum;
+                          
+                          //alert(gameuserurl);
+                          
+                          var userinfo = "<div id='AAAAAA'>";
+                          
+                          $.getJSON(
+                                    gameuserurl,
+                                    function(data) {
+                                    $.each(data.item19, function(i) {
+                                           
+                    if(data.item19[i].ldentity == '1'&& data.item19[i].islive == '1'){
+                                           
+                        userinfo +=  "";
+                        userinfo += "<div class='panel3' style='display: block;'><div class='panel3info'>"+ data.item19[i].username+"</div><div class='killicon' id='killicon"+ data.item19[i].userid +"'  onclick= gongtou("+ data.item19[i].userid+")></div></div>";
+                                           
+                    }else if(data.item19[i].ldentity == '1'&& data.item19[i].islive == '0'){
+                                
+                        userinfo +=  "<div class='panel3' style='display: block;'><div class='statusinfo'>";
+                        userinfo +=  data.item19[i].username;
+                        userinfo +=  "</div></div>";
+                                
+                                           }
+                                           
+                               
+                                           
+                                    
+                                           });
+                                    
+                                    userinfo += "</div> ";
+                                    //alert(userinfo);
+                                    
+                                    
+                                    
+                                    $("#jcuser").append(userinfo);
+                                    
+                                    });
+                                    
+                                    
+                                    
+                                    
+                      }
+
+
+//杀人游戏第二步骤 获取参与游戏人员杀手列表
+function getgamekillerlist(){
+  
+ var gameuserurl = "http://203.100.80.135:8080/JujuDemo/servlet/Sendkillalllist?gamehomenum="+localStorage.g_gamenum;
+    //alert(gameuserurl);
+    
+    var userinfo = "<div id='BBBBBB' >";
+    
+    $.getJSON(
+              gameuserurl,
+              function(data) {
+              $.each(data.item19, function(i) {
+                     
+                     if(data.item19[i].ldentity == '2'&& data.item19[i].islive =='1'){
+                     
+                     userinfo +=  "";
+                     userinfo += "<div class='panel2' style='display: block;'><div class='panel2info'>"+ data.item19[i].username+"</div><div class='killicon' id='killicon"+ data.item19[i].userid +"'  onclick= gongtou("+ data.item19[i].userid+")></div></div>";
+                     }else if(data.item19[i].ldentity == '2'&& data.item19[i].islive =='0'){
+                     
+                     userinfo +=  "";
+                     userinfo += "<div class='panel2' style='display: block;'><div class='statusinfo'>"+ data.item19[i].username+"</div></div>";
+                     
+                     }
+                     
+                     
+                     
+                     
+                     });
+              
+              userinfo += "</div> ";
+              //alert(userinfo);
+              
+              $("#killeruser").append(userinfo);
+              
+              });
+              
+              
+              
+              
+}
+
+//杀人游戏第二步骤 获取参与游戏人员平民列表
+function getgamepmlist(){
+    
+    
+  
+    
+    var gameuserurl = "http://203.100.80.135:8080/JujuDemo/servlet/Sendkillalllist?gamehomenum="+localStorage.g_gamenum;
+    
+    //alert(gameuserurl);
+    
+    var userinfo = "<div  id='CCCCCC'>";
+    
+    $.getJSON(
+              gameuserurl,
+              function(data) {
+              $.each(data.item19, function(i) {
+                     
+                     if(data.item19[i].ldentity == '3'&& data.item19[i].islive =='1'){
+                     userinfo +=  "";
+                     userinfo += "<div class='panel4' style='display: block;'><div class='panel4info'>"+ data.item19[i].username +"</div><div class='killicon' id='killicon"+ data.item19[i].userid +"'  onclick= gongtou("+ data.item19[i].userid+")></div></div>";
+                     
+                     }else if(data.item19[i].ldentity == '3'&& data.item19[i].islive =='0'){
+                     
+                     userinfo += "<div class='panel4' style='display: block;'><div class='statusinfo'>"+ data.item19[i].username+"</div></div>";
+                     
+                     }
+                     
+                     
+                     
+                     
+                     });
+              
+              userinfo += "</div> ";
+              //alert(userinfo);
+              
+              $("#pmuser").append(userinfo);
+              
+              });
+              
+              
+              
+              
+}
+
+
+function reload(){
+    
+    
+    location.reload();
+    
+}
+
+
+function  gongtou(uid){
+    
+    var killuserurl = "http://203.100.80.135:8080/JujuDemo/servlet/Getkillvote?gamehomenum="+localStorage.g_gamenum +"&userid=" + uid ;
+    //alert(killuserurl);
+    
+     $.ajax({
+           type: "GET",
+           url: killuserurl,
+           dataType: "script"
+           });
+           
+      $("#killicon"+ uid + "").remove();
+}
+
+</script>
+
+<style>
+    
+    body{
+        font: 14px "Source Sans", helvetica, arial, sans-serif;
+        -moz-user-select: none; /*火狐*/
+        -webkit-user-select: none; /*webkit浏览器*/
+        -ms-user-select: none; /*IE10*/
+        -khtml-user-select: none; /*早期浏览器*/
+        user-select: none;
+        overflow:auto;
+    }
+
+.main{
+    
+    
+
+}
+
+.jclist{
+font: 14px "Source Sans", helvetica, arial, sans-serif;
+margin-top:86px;
+
+height:80px;
+overflow:auto;
+}
+
+.killerlist{
+    font: 14px "Source Sans", helvetica, arial, sans-serif;
+    margin-top:70px;
+    height:80px;
+    overflow:auto;
+}
+
+.pmlist{
+    font: 14px "Source Sans", helvetica, arial, sans-serif;
+    margin-top:70px;
+    height:110px;
+    overflow:auto;
+}
+
+.fg{
+background-image:url("./img/FG.PNG");
+width:295px;
+height:80px;
+background-repeat: no-repeat;
+display:block;
+margin-left:6px;
+
+position:absolute;
+z-index:100;
+}
+
+.fginfo{
+    color:white;
+    float:right;
+    padding-top:44px;
+    padding-right:140px;
+}
+
+.JC{
+    background-image:url("./img/JC.PNG");
+    width:295px;
+    height:80px;
+    background-repeat: no-repeat;
+    display:block;
+    margin-left:3px;
+    margin-top:20px;
+    
+    position:absolute;
+    z-index:100;
+}
+
+.panel3{
+    
+    background-image:url("./img/LBB.PNG");
+    margin-left:10px;
+    width:270px;
+    height:51px;
+    background-repeat: no-repeat;
+    display:block;
+    text-align:center;
+    margin-top:1px;
+    -webkit-box-shadow: 3px 3px 3px #000;
+    -moz-box-shadow: 3px 3px 3px #000;
+    box-shadow: 3px 3px 3px #000;
+    
+}
+
+.panel3info{
+    color:white;
+    padding-top:20px;
+}
+
+.gooutinfo{
+    background－color:#ccc;
+    padding-top:20px;
+}
+
+.KILL{
+    background-image:url("./img/KILL.PNG");
+    width:295px;
+    height:80px;
+    background-repeat: no-repeat;
+    display:block;
+    margin-left:6px;
+    margin-top:0px;
+    
+    position:absolute;
+    z-index:100;
+}
+
+
+.panel2{
+    z-index:90;
+    background-image:url("./img/LBB.PNG");
+    margin-left:14px;
+    width:270px;
+    height:51px;
+    background-repeat: no-repeat;
+    display:block;
+    text-align:center;
+    margin-top:1px;
+    -webkit-box-shadow: 3px 3px 3px #000;
+    -moz-box-shadow: 3px 3px 3px #000;
+    box-shadow: 3px 3px 3px #000;
+    
+}
+
+.panel2info{
+    color:white;
+    padding-top:20px;
+    
+}
+
+.PM{
+    background-image:url("./img/PMMB.PNG");
+    width:295px;
+    height:80px;
+    background-repeat: no-repeat;
+    display:block;
+    margin-left:6px;
+    margin-top:0px;
+    
+    position:absolute;
+    z-index:100;
+}
+
+.panel4{
+    z-index:90;
+    background-image:url("./img/LBB.PNG");
+    margin-left:14px;
+    width:270px;
+    height:51px;
+    background-repeat: no-repeat;
+    display:block;
+    text-align:center;
+    margin-top:1px;
+    -webkit-box-shadow: 3px 3px 3px #000;
+    -moz-box-shadow: 3px 3px 3px #000;
+    box-shadow: 3px 3px 3px #000;
+    
+}
+
+.panel4info{
+    color:white;
+    padding-top:20px;
+    
+}
+
+.statusinfo{
+    color:white;
+    padding-top:20px;
+    background-color:black;
+    
+}
+
+.killicon{
+
+
+display:block;
+width:35px;
+height:35px;
+float:right;
+background-image:url("./img/fgkill.PNG");
+margin-top:-30px;
+
+}
+
+</style>
+
+<div  class="main">
+<div onclick="reload()">&nbsp;&nbsp;</div>
+
+
+<div id='JC' class=JC></div>
+<div id="jcuser" class='jclist'></div>
+
+<div id='KILL' class=KILL></div>
+<div id="killeruser" class='killerlist' ></div>
+
+<div id='PM' class=PM></div>
+<div id="pmuser" class='pmlist' ></div>
+
+</div>
+
+
+
+
+
+
+
+

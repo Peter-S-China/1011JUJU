@@ -1,0 +1,239 @@
+<html>
+<body style="background-color:transparent;">
+    <script src="../jquery.js"></script>
+    
+    <style>
+        
+        body{
+            font: 14px "Source Sans", helvetica, arial, sans-serif;
+            -moz-user-select: none; /*火狐*/
+            -webkit-user-select: none; /*webkit浏览器*/
+            -ms-user-select: none; /*IE10*/
+            -khtml-user-select: none; /*早期浏览器*/
+            user-select: none;
+        }
+    
+    .ownerinfo{
+    
+    padding:10px;
+    text-align:center;
+    background:#FF9900;
+    border:solid 1px #FF9900;
+    border-radius: 6px;
+    display:block;
+    width:280px;
+    height:90px;
+    margin-bottom:10px;
+    margin-left:0px;
+    color:white;
+    font: 16px "Source Sans", helvetica, arial, sans-serif;
+    text-shadow: 1px 1px  3px #000;
+    
+    
+    }
+    
+    .flip2{
+        padding:10px;
+        text-align:center;
+        background:#CCCCCC;
+        border:solid 1px #CCCCCC;
+        border-radius: 6px;
+        display:block;
+        width:280px;
+        height:30px;
+        margin-bottom:10px;
+        margin-left:0px;
+        color:white;
+        font: 16px "Source Sans", helvetica, arial, sans-serif;
+        text-shadow: 1px 1px  3px #000;
+        
+        
+        
+    }
+    
+    .flip{
+        padding:10px;
+        text-align:center;
+        background:#FF9900;
+        border:solid 1px #FF9900;
+        border-radius: 6px;
+        display:block;
+        width:280px;
+        height:30px;
+        margin-bottom:10px;
+        margin-left:0px;
+        color:white;
+        font: 16px "Source Sans", helvetica, arial, sans-serif;
+        text-shadow: 1px 1px  3px #000;
+    }
+
+    .ccd{
+    background:#FF9900;
+    top:10px;
+    right:10px;
+    display:none;
+    float:right;
+    border-radius: 6px;
+    
+    margin:0px;
+    padding:5px;
+    text-align:left;
+    font-size:18px;
+    position:fixed;
+ 
+    }
+    #gameinfo{
+    
+    height:500px;
+    overflow:auto;
+    display:none;
+    
+    }
+        </style>
+    
+    
+    
+
+    <script>
+        
+        
+             $(document).ready(function(){
+                        
+      
+                        
+                        
+                        
+      $("#userdetail").click(function(){
+                       
+      var div=$("p");
+      div.animate({height:'40px',opacity:'0.9'},"fast");
+      div.animate({width:'120px',opacity:'0.9'},"fast");
+      div.animate({right:'100px'},"fast");
+      div.animate({height:'toggle'});
+                       
+      });
+               
+            getuserlist();                   
+            setInterval(function(){cccccc();},6000);
+                             
+                        
+                        
+                        });
+                        
+                       function cccccc(){
+                        
+                        $("#userinfo").remove();
+                        reloaduserlist();
+                        $("#gameinfo").fadeIn(3000);
+                        $("#gameinfo").fadeOut(3000);
+                        
+                       }
+
+
+function getuserlist(){
+                            
+                            
+var jcontact = "http://203.100.80.135:8080/JujuDemo/servlet/Sendsingleundercover?gamehomenum=" + localStorage.g_gamenum + "&userid="+localStorage.g_userid;
+                            
+//var jcontact = "http://203.100.80.135:8080/JujuDemo/servlet/Sendsingleundercover?gamehomenum=4073&userid=1393";
+                            
+                            var userinfo ="<div id= 'userddd' >";
+                            $.getJSON(
+                                      jcontact,
+                                      function(data) {
+                                      //console.log(JSON.stringify(data));
+                                      $.each(data, function(i) {
+                                             
+                                             userinfo += '<h1>用户'+ data.item19[0].username +'</h1>';
+                                             
+                                             if( data.item19[0].ldentity=='1'){
+                                             
+                                             userinfo += '<p class=ccd><br> 词汇是:'+ data.item19[0].phrase + '</p>';
+                                             
+                                             }else{
+                                             
+                                             userinfo += '<p class= ccd><br> 词汇是:'+ data.item19[0].phrase + '</p>';
+                                             
+                                             }
+                                             });
+                                      userinfo += "</div> ";
+                                      
+                                      //alert(userinfo);
+                                      
+                                      $("#userdetail").append(userinfo);
+                                      });
+                        }
+    
+    
+    
+         
+    function reloaduserlist(){
+        
+       var jcontact = "http://203.100.80.135:8080/JujuDemo/servlet/Sendjoinunderlist?gamehomenum=" + localStorage.g_gamenum;
+        
+//var jcontact = "http://203.100.80.135:8080/JujuDemo/servlet/Sendjoinunderlist?gamehomenum=4073";
+        
+        
+        var userinfo ="<div id= 'userinfo'>";
+        var usernum;
+        
+        $.getJSON(
+                  jcontact,
+                  function(data) {
+                  
+                  //console.log(JSON.stringify(data));
+                  
+                  $.each(data, function(i) {
+                         
+                         
+                         if(data[i].islive== '0'){
+                         userinfo += "<div class='flip2'> ";
+                         userinfo += data[i].username + "";
+                         userinfo += "状态:挂了";
+                         userinfo += "</div>";
+                
+                         
+                         }else if(data[i].islive== '1'){
+                         
+                         userinfo += "<div class='flip'>";
+                         userinfo += data[i].username;
+                         userinfo += "</div> ";
+                         
+                          }
+                         
+                         
+                         });
+                  
+                  
+                  userinfo += " </div>";
+                  
+                  //alert(userinfo);
+                  
+                  $("#gameinfo").append(userinfo);
+                  
+                  
+                  });
+                  
+                  
+                  
+                  
+                  
+                  
+    }
+    
+    
+
+    
+        </script>
+    
+  
+        
+        <div id="userdetail" class="ownerinfo" >
+            
+        </div>
+        
+    <div id = "gameinfo"></div>
+    
+     <div id="myDiv"></div>
+   
+</body></html>

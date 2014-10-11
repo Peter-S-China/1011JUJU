@@ -1,0 +1,164 @@
+<script src="../jquery.js"></script>
+<style>
+    
+    body{
+        font: 14px "Source Sans", helvetica, arial, sans-serif;
+        -moz-user-select: none; /*火狐*/
+        -webkit-user-select: none; /*webkit浏览器*/
+        -ms-user-select: none; /*IE10*/
+        -khtml-user-select: none; /*早期浏览器*/
+        user-select: none;
+        background: transparent;
+        overflow: auto;
+        
+    }
+.userlist{
+
+font: 14px "Source Sans", helvetica, arial, sans-serif;
+margin-top:10px;
+}
+.fg{
+
+background-image:url("./img/FG.PNG");
+width:295px;
+height:80px;
+background-repeat: no-repeat;
+display:block;
+margin-left:6px;
+
+position:absolute;
+z-index:100;
+}
+.pm{
+
+z-index:90;
+background-image:url("./img/LBB.PNG");
+margin-left:14px;
+width:279px;
+height:51px;
+background-repeat: no-repeat;
+display:block;
+text-align:center;
+margin-top:-2px;
+-webkit-box-shadow: 3px 3px 3px #000;
+-moz-box-shadow: 3px 3px 3px #000;
+box-shadow: 3px 3px 3px #000;
+
+}
+.fginfo{
+color:white;
+float:right;
+padding-top:44px;
+padding-right:140px;
+}
+.pminfo{
+    color:white;
+}
+
+#fgis{
+
+display:block;
+background-color:#ccc;
+width:80px;
+height:20px;
+float:right;
+color:white;
+border-radius: 6px;
+
+
+}
+</style>
+
+<script>
+    $(document).ready(function(){
+                      $("#FG").click(function(){
+                                       $(".panel1").slideToggle("slow");
+                                       });
+                      $("#KILL").click(function(){
+                                     $(".panel2").slideToggle("slow");
+                                     });
+                      $("#JC").click(function(){
+                                       $(".panel3").slideToggle("slow");
+                                       });
+                      $("#PM").click(function(){
+                                     $(".panel4").slideToggle("slow");
+                                     });
+                      
+                      getgameuserlist();
+                      
+                      
+                      });
+                      
+                     //杀人游戏第一步骤 获取参与游戏人员列表
+                     function getgameuserlist(){
+                         
+                         var gameuserurl = "http://203.100.80.135:8080/JujuDemo/servlet/Killpersonlist?gamehomenum="+localStorage.g_gamenum;
+                         
+                         //var gameuserurl = "http://203.100.80.135:8080/JujuDemo/servlet/Killpersonlist?gamehomenum="+"5632";
+                         //alert(gameuserurl);
+                         
+                         var userinfo = "<div class='userlist'>";
+                         $.getJSON(
+                                   gameuserurl,
+                                   function(data) {
+                                   $.each(data.item17, function(i) {
+                                          
+                                if(data.item17[i].gameuserid == '1'){
+                                
+        userinfo += '<div class=fg><span class=fginfo>'+ data.item17[i].username +'</span></div>';
+          
+        userinfo += "<div style='display:block;height:76px;'></div>";
+                                          }else{
+                                          
+          
+          userinfo += '<div class=pm><span class=pminfo><br>'+ data.item17[i].username +'</span><span id=fgis  class=fgis'+  data.item17[i].userid +' onclick=fgis('+ data.item17[i].userid +')> 指定法官</span></div>';
+                                          
+                                        }
+                                          
+                                          
+                                          });
+                                  userinfo += "</div> ";
+                                   //alert(userinfo);
+                                   
+                                   $("#gameuser").append(userinfo);
+                                   
+                                   });
+
+                     
+                     
+                     
+                     }
+
+function reload(){
+
+
+location.reload();
+
+}
+function fgis(uid){
+    
+    //alert('当前用户ID' + localStorage.g_userid + '指定法官ID'+ uid);
+     var fguserurl = "http://203.100.80.135:8080/JujuDemo/servlet/Killappointedjudges?gamehomenum="+localStorage.g_gamenum + "&judeid="+localStorage.g_userid+"&newjudeid=" + uid;
+     
+      $.ajax({
+            type: "GET",
+            url: fguserurl,
+            dataType: "script"
+            });
+   
+       $(".fgis"+ uid + "").remove();
+
+}
+
+
+ </script>
+
+<div>
+<div id="gameuser"></div>
+
+
+
+</div>
+
+
+

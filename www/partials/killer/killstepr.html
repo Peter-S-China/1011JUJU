@@ -1,0 +1,136 @@
+<script src="../jquery.js"></script>
+<script>
+    $(document).ready(function(){
+              
+                      getkillr();
+    
+    });
+    
+    
+    function getkillr(){
+        
+     var gkrurl="http://203.100.80.135:8080/JujuDemo/servlet/Sendjudgekilllist?gamehomenum=" +  localStorage.g_gamenum;
+        //alert(gkrurl);
+        
+        var info = "";
+        $.getJSON(
+                  gkrurl,
+                  function(data) {
+                  $.each(data.item23, function(i) {
+                         
+                         info += getdate(data.item23[0].content);
+                         
+                  });
+                  
+                  
+                  
+                  if( info=='杀手胜利'){
+                  
+                      $("#SSSL").fadeIn(3000);
+                  
+                  }else{
+                  
+                      $("#JCSL").fadeIn(3000);
+                  
+                  }
+                
+        });
+                  
+                  
+    
+    }
+
+
+    var x=0;
+    function getdate(item){
+        
+    x=x+1;
+    var cc= "";
+    if(x<=1){
+
+      cc = item;
+      
+    }else{
+
+     cc= "";
+     
+    }
+    return cc;
+    
+    }
+    
+    </script>
+
+<style>
+    
+    body{
+        font: 14px "Source Sans", helvetica, arial, sans-serif;
+        -moz-user-select: none; /*火狐*/
+        -webkit-user-select: none; /*webkit浏览器*/
+        -ms-user-select: none; /*IE10*/
+        -khtml-user-select: none; /*早期浏览器*/
+        user-select: none;
+        overflow:auto;
+    }
+
+.main{
+    margin-top:-8px;
+    margin-left:-8px;
+    width:320px;
+    height:568px;
+    background-image:url("./img/gameover.PNG");
+    
+}
+.c1{
+
+    width:320px;
+    height:568px;
+    display:none;
+    
+    background-image:url("./img/killercard.png");
+
+}
+
+.SSCC{
+
+background-image:url("./img/killerwin.PNG");
+background-repeat: no-repeat;
+width:320px;
+height:568px;
+background-position: 1em center;
+}
+.c2{
+   
+    width:320px;
+    height:568px;
+    display:none;
+    
+    background-image:url("./img/policecard.png");
+}
+
+.JCCC{
+    
+    background-image:url("./img/policewin.PNG");
+    background-repeat: no-repeat;
+    width:320px;
+    height:568px;
+    background-position: 1em center;
+}
+
+</style>
+
+<div  class="main">
+    
+    <div id="SSSL" class="c1"><div class="SSCC"></div></div>
+<div id="JCSL" class="c2"><div class="JCCC"></div></div>
+    
+
+</div>
+
+
+
+
+
+
+
+

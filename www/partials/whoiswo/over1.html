@@ -1,0 +1,34 @@
+
+<div class="whoiswobg">
+<div class="new-navigation-bar"   ng-controller="WhoiswosetupCtrl">
+    <div class="new-navigation-bar__item left quarter">
+        <a class="new-icon-button--quiet" ng-click="exitgamehome()">
+         退出游戏
+                </a>
+                </div>
+    <div class="new-navigation-bar__item center half">
+        <h1 class="new-navigation-bar__title">谁是卧底</h1>
+    </div>
+    <div class="new-navigation-bar__item right quarter">
+    </div>
+</div>
+
+<iframe
+    allowtransparency="true"
+    style="background: transparent;"
+    src="partials/whoiswo/userlist4.html"
+    scrolling="yes" frameborder="0" height="300" scrolling="auto">
+</iframe>
+
+<div style="position:fixed; top:500px; left:0; width:100%;padding:10px;"  ng-controller="WhoiswogameoverCtrl" >
+    
+
+    
+    <div style="border-radius: 6px;float:left;font-weight:bold;width:100px;color:white;padding:10px;background-color:#FF3333;text-align:center;margin-left:20px;">
+        
+        <a ng-click="playgo()" >再来一局</a>
+        
+        
+    </div>
+</div>
+</div>

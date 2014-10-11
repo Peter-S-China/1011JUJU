@@ -1,0 +1,130 @@
+<html>
+<head>
+<script src="../jquery.js"></script>
+<script>
+    
+            
+$(document).ready(function(){
+                              
+ var div=$(".gameoverinfo");
+ div.animate({height:'5680px',opacity:'0.4'},"slow");
+ div.animate({width:'320px',opacity:'0.8'},"slow");
+ div.animate({height:'568px',opacity:'0.4'},"slow");
+ div.animate({width:'320px',opacity:'0.8'},"slow");
+                              
+                              fgshow();
+                              
+                              });
+function fgshow(){
+var overurl = "http://203.100.80.135:8080/JujuDemo/servlet/Sendvoteoutcome?gamehomenum="+ localStorage.g_gamenum + "&flag=1";
+ 
+ 
+ var wodi="";
+ var pm = "";
+ var jieguo ="";
+ 
+ $.getJSON(
+           overurl,
+           function(data) {
+           $.each(data.item20, function() {
+                  
+                  wodi =  "<div class=infoitem >卧底词:"+ data.item20.title1 +"</div>";
+                  pm = "<div class=infoitem >平民词:"+ data.item20.title2 +"</div>";
+                  
+                  if(data.item20.content=="卧底胜利"){
+                  
+                  jieguo = "<div class=wwin></div>";
+                  
+                  }else if(data.item20.content=="平民胜利"){
+                  
+                  jieguo = "<div class=pwin></div>";
+                  
+                  }
+                  
+                  
+                  
+  
+              
+                  });
+           
+           
+            $(".gameoverinfo").append(jieguo + wodi + pm);
+           
+           });
+
+
+
+
+
+}
+        
+                  
+                              
+</script>
+</head>
+<style>
+body {
+            
+            font: 14px "Source Sans", helvetica, arial, sans-serif;
+            -moz-user-select: none; /*火狐*/
+            -webkit-user-select: none; /*webkit浏览器*/
+            -ms-user-select: none; /*IE10*/
+            -khtml-user-select: none; /*早期浏览器*/
+            user-select: none;
+            color:black;
+            margin:0;
+            padding:0;
+            
+            
+            
+        }
+
+.gameoverinfo{
+      background:#98bf21;
+      height:568px;
+      width:320px;
+      position:absolute;
+    
+      padding-top:320px;
+      padding-left:90px;
+    }
+
+.infoitem{
+
+ text-shadow: 1px 1px  3px #000;
+ color:white;
+ font:24px "Source Sans", helvetica, arial, sans-serif;
+ font-weight:bold;
+ 
+
+}
+.wwin{
+
+background-image: url("./wwin.png");
+background-repeat: no-repeat;
+display:block;
+width:320px;
+height:320px;
+position:fixed;
+top:0px;
+left:0px;
+}
+.pwin{
+    background-image: url("./pwin.png");
+    background-repeat: no-repeat;
+    display:block;
+    width:320px;
+    height:320px;
+    position:fixed;
+    top:0px;
+    left:0px;
+}
+
+</style>
+<body>
+<div class="gameoverinfo">
+
+</div>
+
+</body>
+</html>

@@ -1,0 +1,98 @@
+<html>
+<body style="background-color:transparent;">
+        <script src="http://code.jquery.com/jquery-1.9.1.js"></script>
+
+        
+        <style>
+            
+           .imgdice {
+                margin-top: 5px;
+                padding: 2px;
+                width: 15px;
+                height: 15px;
+                background-color: transparent;
+            }
+            
+       </style>
+        <div id="weather" style="color: #fff;background-color: transparent; ">
+         
+        </div>
+        
+        <script>
+            
+             var jcontact = "http://203.100.80.135:8080/JujuDemo/servlet/SendbosonsCover?gamehomenum="+localStorage.g_gamenum+"&cate=1";
+             
+             //var jcontact = "http://203.100.80.135:8080/JujuDemo/servlet/SendbosonsCover?gamehomenum=" + "1532" +"&cate=1";
+             
+             //alert(jcontact);
+            
+            $(function() {
+              $.getJSON(
+                        jcontact,
+                        function(data) {
+                        $.each(data.item18, function(i) {
+                               
+                               
+                               
+            $("#weather").append("<div >" +totaldicenum(data.item18[i].totalnum) +"</div><div>" + data.item18[i].username + "</div>"+"<div>"+ senddicenum(data.item18[i].bosonscover)+"</div>")
+        
+            
+                              
+                               
+                               
+                               
+                               });
+                        });
+              
+              
+              function totaldicenum(item){
+              
+              
+               //var items = item.split(',');
+              
+                 var cc="";
+                 cc = '<img   class=imgdice src=../'+ item +'.PNG> x' + item;
+                 //cc += '<img class=imgdice src=../2.PNG> x' + items[1];
+                 //cc += '<img class=imgdice src=../3.PNG> x' + items[2];
+                 //cc += '<img class=imgdice src=../4.PNG> x' + items[3];
+                 //cc += '<img class=imgdice src=../5.PNG> x' + items[4];
+                 //cc += '<img class=imgdice src=../6.PNG> x' + items[5];
+            
+               //alert(cc);
+              
+               return cc;
+              
+              }
+              
+              //totaldicenum("2,1,1,1,0,1");
+              
+              
+              function senddicenum(item){
+              
+               //var items = item.split(',');
+              
+               var cc="";
+               cc = '<img class=imgdice  src=' +"'../"+ item +".PNG'/>";
+              
+              //for(i=0;i<items.length;i++){
+              
+                   //alert(items[i]);
+                //   cc += '<img class=imgdice  src=' +"'../"+ items[i] +".PNG'/>";
+              
+              
+                  //}
+                //alert(cc);
+                return cc;
+               }
+              
+              //senddicenum("1,4,3,1,6,2");
+              
+              });
+              
+              
+       
+       
+       
+            </script>
+        
+</body></html>

@@ -1,0 +1,696 @@
+<html>
+<script src="../jquery.js"></script>
+<script>
+    //localStorage.g_userid='7165';
+    //localStorage.g_gamenum='1846';
+//页面加载时调用
+$(function(){
+  //默认动画加载
+   $(".mora5").animate({right:'-10px'},"slow");
+   $(".mora5").animate({right:'-10px'},"slow");
+   $(".mora5").animate({right:'-20px'},"slow");
+   $(".mora5").fadeOut("slow");
+   $(".mora1").animate({top:'-2px'},"slow");
+   $(".mora1").animate({top:'-10px'},"slow");
+   $(".mora1").animate({top:'-10px'},"slow");
+   $(".mora2").animate({top:'-180px'},"slow");
+   $(".mora2").fadeOut("slow");
+   $(".mora3").animate({bottom:'-160px'},"slow");
+  //$(".mora3").fadeToggle();
+   $(".mora4").animate({bottom:'-2px'},"slow");
+   $(".mora4").animate({bottom:'-2px'},"slow");
+   $(".mora4").animate({bottom:'-2px'},"slow");
+   $(".mora3").fadeOut("slow");
+   //$(".mora4").fadeToggle();
+  getuserlist();
+  
+  
+  $(".playgo").click(function(){
+                     
+                     startmoragame();
+                     startmoragame();
+                     startmoragame();
+                     $(".playgo").fadeOut();
+                     $("#userinfo").fadeOut();
+                     getpeerlist();
+                     
+                     $(".peerhead").fadeIn();
+                     $("#moraitems").fadeIn();
+                     $("#round1info").fadeIn(3000);
+                     
+                    });
+  
+  });
+  
+  function getuserlist(){
+      
+      var jcontact = "http://203.100.80.135:8080/JujuDemo/servlet/Guesspersonlist?gamehomenum=" + localStorage.g_gamenum;
+      var userinfo ="<div class='user' id='userlist'>";
+      $.getJSON(
+                jcontact,
+                function(data) {
+                $.each(data.item17, function(i) {
+                     userinfo += "<div style='color:white;'>" + data.item17[i].username + "</div>"
+                     usernum = data.item17[i].sum;
+                       });
+                userinfo += "</div> ";
+                $("#userinfo").append(userinfo);
+                });
+   }
+
+var teamflag = "";
+function getpeerlist(){
+
+    var baseurl = "http://203.100.80.135:8080/JujuDemo/servlet/Startfingerguess?gamehomenum=";
+    var jpeer = baseurl + localStorage.g_gamenum + "&userid="+ localStorage.g_userid;
+    //alert(jpeer);
+    var userinfo ="<div class='peeruser' id='peeruserlist'>";
+    $.getJSON(
+              jpeer,
+              function(data) {
+              $.each(data.item21, function(i) {
+                     
+    userinfo += "<div style='color:white;'>" + data.item21[i].battleusername + "</div>";
+    teamflag = data.item21[i].teamflag;
+    userinfo += "<div style='color:white;'>" + teamflag + "</div>";
+                     });
+                                   
+              userinfo += "</div> ";
+              $("#peerinfo").append(userinfo);
+            });
+}
+
+function startmoragame(){
+var startrurl = "http://203.100.80.135:8080/JujuDemo/servlet/Getguessflag?gamehomenum="+localStorage.g_gamenum +"&guessflag=1";
+$.ajax({
+       type: "POST",
+       url: startrurl,
+       dataType: "script"
+       });
+}
+
+function exit(){
+var exiturl = "http://203.100.80.135:8080/JujuDemo/servlet/Exitgamehome?gamehomenum="+ localStorage.g_gamenum + "&id="+ localStorage.g_userid;
+$.ajax({
+       type: "GET",
+       url: exiturl,
+       dataType: "script"
+       });
+       history.go(-1);
+}
+function Getguesscover(cover,num){
+    var Getguessurl = "http://203.100.80.135:8080/JujuDemo/servlet/Getguesscover?gamehomenum="+localStorage.g_gamenum + "&userid="+ localStorage.g_userid +"&guesscover="+ cover+ "&teamflag="+ teamflag +"&getnum="+ num;
+    
+     htmlobj=$.ajax({url:Getguessurl,async:false});
+     
+     //$("#myDiv").html(htmlobj.responseText);
+    
+     Sendguesscover(num);
+     
+     $("#moraitems").fadeOut();
+
+}
+
+
+var sendguesscoverurl;
+var g_timer;
+function Sendguesscover(num){
+    
+    sendguesscoverurl = "http://203.100.80.135:8080/JujuDemo/servlet/Sendguesscover?gamehomenum="+localStorage.g_gamenum + "&userid="+ localStorage.g_userid + "&teamflag="+ teamflag +"&getnum="+num;
+
+    g_timer = setInterval(function(){fuckcc()},3000);
+
+     //alert(sendguesscoverurl);
+     //htmlobj = $.ajax({url:sendguesscoverurl,async:false});
+     //$("#myDiv").html(htmlobj.responseText);
+}
+
+
+//不间断访问方法
+var x=0;
+x = localStorage.times;
+
+function fuckcc(){
+
+var content="";
+var moraitems1="";
+var moraitems2="";
+var moraitems3="";
+
+//alert(sendguesscoverurl);
+//局内第一轮结果处理
+if(x == 0 ){
+    
+  $("#moraitems").fadeIn();
+  
+  $.getJSON(
+          sendguesscoverurl,
+          function(data) {
+          $.each(data.item22, function() {
+                 content = data.item22.content;
+                 });
+         
+            if(content == '0'){
+            
+             clearInterval(g_timer);
+             
+            $("#pjinfo").fadeIn();
+
+            $("#moraitems").empty();
+            
+            moraitems1 ="<div class='shitou' onclick='Getguesscover(1,1)'></div><div class='jianzi' onclick='Getguesscover(2,1)'></div><div class='bu' onclick='Getguesscover(3,1)'></div>";
+            
+            $("#moraitems").append(moraitems1);
+            
+            }
+            if(content == '1'){
+             clearInterval(g_timer);
+             
+            $("#round1info").fadeOut(3000);
+            $("#round2info").fadeIn();
+            
+            $("#moraitems").empty();
+            moraitems2 ="<div class='shitou' onclick='Getguesscover(1,2)'></div><div class='jianzi' onclick='Getguesscover(2,2)'></div><div class='bu' onclick='Getguesscover(3,2)'></div>";
+
+            $("#moraitems").append(moraitems2);
+            
+            $(".youwin").fadeIn();
+            $(".youwin").fadeOut(3000);
+            x= x+1;
+            
+            }
+            if(content == '2'){
+            clearInterval(g_timer);
+            
+            $("#round1info").fadeOut(3000);
+            $("#round2info").fadeIn();
+           
+            $("#moraitems").empty();
+            
+            moraitems2 ="<div class='shitou' onclick='Getguesscover(1,2)'></div><div class='jianzi' onclick='Getguesscover(2,2)'></div><div class='bu' onclick='Getguesscover(3,2)'></div>";
+            
+            $("#moraitems").append(moraitems2);
+            
+            $(".youlost").fadeIn();
+            $(".youlost").fadeOut(3000);
+            x=x+1;
+            
+            }
+            
+            if(content == '3'){
+          
+            $(".youwin").fadeIn();
+           
+            }
+          
+            if(content == '4'){
+        
+            $(".youlost").fadeIn();
+            
+            }
+          
+            });
+        
+        }
+ else if(x == 1 ){
+       //局内第二轮处理结果
+        $("#moraitems").fadeIn();
+       
+       $.getJSON(
+                 sendguesscoverurl,
+                 function(data) {
+                 $.each(data.item22, function() {
+                        
+                        content = data.item22.content;
+                        
+                        });
+                 
+                 if(content == '0'){
+                  clearInterval(g_timer);
+                
+                 $("#pjinfo").fadeIn();
+                 $("#pjinfo").fadeOut(3000);
+            
+                 $("#moraitems").empty();                
+                 moraitems2 ="<div class='shitou' onclick='Getguesscover(1,2)'></div><div class='jianzi' onclick='Getguesscover(2,2)'></div><div class='bu' onclick='Getguesscover(3,2)'></div>";
+                 $("#moraitems").append(moraitems2);
+                 }
+                 if(content == '1'){
+                 
+                clearInterval(g_timer);
+                 $("#round2info").fadeOut(3000);
+                 $("#round3info").fadeIn(3000);
+                 $("#round3info").fadeOut(3000);
+                 
+                 $("#moraitems").empty();
+                 moraitems3 ="<div class='shitou' onclick='Getguesscover(1,3)'></div><div class='jianzi' onclick='Getguesscover(2,3)'></div><div class='bu' onclick='Getguesscover(3,3)'></div>";
+                 $("#moraitems").append(moraitems3);
+
+                 
+                 $(".youwin").fadeIn();
+                 $(".youwin").fadeOut(3000);
+                 x=x+1;
+                 }
+                 if(content == '2'){
+                  clearInterval(g_timer);
+                 
+                 $("#round2info").fadeOut(3000);
+                 $("#round3info").fadeIn(3000);
+                 $("#round3info").fadeOut(3000);
+                 
+                 $("#moraitems").empty();
+                 
+                 
+                 moraitems3 ="<div class='shitou' onclick='Getguesscover(1,3)'></div><div class='jianzi' onclick='Getguesscover(2,3)'></div><div class='bu' onclick='Getguesscover(3,3)'></div>";
+                 
+                 $("#moraitems").append(moraitems3);
+                 
+                 $(".youlost").fadeIn();
+                 $(".youlost").fadeOut(3000);
+                 x=x+1;
+                 
+                 }
+                 
+                 if(content == '3'){
+                
+                 $(".youwin").fadeIn();
+                 
+                 }
+                 
+                 if(content == '4'){
+              
+                 $(".youlost").fadeIn();
+                 
+                 }
+                 
+                 });
+
+    } else  if(x==3){
+   //局内第三轮
+   
+   
+    
+    $.getJSON(
+              
+           sendguesscoverurl,
+           function(data) {
+           $.each(data.item22, function() {
+                  
+                  content = data.item22.content;
+                  
+                  });
+           
+           if(content == '0'){
+            clearInterval(g_timer);
+           
+           $("#pjinfo").fadeIn();
+           $("#pjinfo").fadeOur(3000);
+           
+           $("#moraitems").empty();
+           
+           moraitems3 ="<div class='shitou' onclick='Getguesscover(1,3)'></div><div class='jianzi' onclick='Getguesscover(2,3)'></div><div class='bu' onclick='Getguesscover(3,3)'></div>";
+           
+           $("#moraitems").append(moraitems3);
+
+           
+           }
+           if(content == '1'){
+              
+          clearInterval(g_timer);
+           
+           $("#round3info").fadeOut();
+              
+           $(".youwin").fadeIn();
+           $(".youwin").fadeOut(3000);
+           
+           $(".playgo").fadeIn();
+           
+           
+           }
+           
+           if(content == '2'){
+            clearInterval(g_timer);
+           
+           $("#round3info").fadeOut();
+           $(".youlost").fadeIn();
+           $(".youlost").fadeOut(3000);
+           
+            $(".playgo").fadeIn();
+           
+           }
+
+
+           if(content == '3'){
+           
+           $(".youwin").fadeIn();
+           
+           }
+           
+           if(content == '4'){
+           
+           $(".youlost").fadeIn();
+           
+           }
+
+           
+           
+           });
+
+}
+
+}
+
+
+
+
+</script>
+
+<body >
+    
+    <style>
+        
+        body {
+            
+            font: 14px "Source Sans", helvetica, arial, sans-serif;
+            -moz-user-select: none; /*火狐*/
+            -webkit-user-select: none; /*webkit浏览器*/
+            -ms-user-select: none; /*IE10*/
+            -khtml-user-select: none; /*早期浏览器*/
+            user-select: none;
+            color:black;
+            margin:0;
+            padding:0;
+            
+         
+         
+        }
+    
+    .mora1{
+        background-image:url(./img/mora_left_small.PNG);
+        background-repeat: no-repeat;
+        display:block;
+        width:320px;
+        height:115px;
+        
+        position:fixed;
+    }
+    .mora2{
+        background-image:url(./img/mora_left_big.PNG);
+        background-repeat: no-repeat;
+        display:block;
+        width:320px;
+        height:305px;
+        float:left;
+        position:fixed;
+        top:0;
+    }
+    .mora3{
+        
+        background-image:url(./img/mora_right_big.PNG);
+        background-repeat: no-repeat;
+        display:block;
+        width:320px;
+        height:285px;
+        float:left;
+        
+        position:fixed;
+    }
+    .mora4{
+        background-image:url(./img/mora_right_small.PNG);
+        background-repeat: no-repeat;
+        display:block;
+        width:320px;
+        height:98px;
+        float:right;
+        
+        position:fixed;
+        bottom:0px;
+        
+        
+        
+    }
+    .mora5{
+        position:fixed;
+        right:0;
+        top:0;
+        
+        width:54px;
+        height:568px;
+        background-image:url(./img/mora_top.PNG);
+        background-repeat: no-repeat;
+        
+    }
+    .mora6{
+        
+    }
+    
+    .user{
+        -moz-transform:rotate(90deg);
+        -webkit-transform:rotate(90deg);
+        position:fixed;
+        bottom:90px;
+        left:-20px;
+        width:410px;
+        height:50px;
+        
+        
+        background-repeat: no-repeat;
+        font: 14px "Source Sans", helvetica, arial, sans-serif;
+        padding-top:20px;
+        overflow-x:auto;
+       
+        
+    }
+    
+    
+    
+    .peeruser{
+        -moz-transform:rotate(90deg);
+        -webkit-transform:rotate(90deg);
+        position:fixed;
+        bottom:90px;
+        left:-20px;
+        width:410px;
+        height:50px;
+        
+        
+        background-repeat: no-repeat;
+        font: 14px "Source Sans", helvetica, arial, sans-serif;
+        padding-top:20px;
+        overflow-y:auto;
+        
+    }
+
+    .playgo{
+        width:90PX;
+        height:568PX;
+    }
+    
+    .infoarea{
+        
+    }
+    .infohead{
+        
+        background-image:url(./img/mora_list_drawable.PNG);
+        display:block;
+        
+        width:230px;
+        height:20px;
+        position:fixed;
+        top:330px;
+        left:100px;
+        background-repeat:no-repeat;
+        background-position:20px 0;
+        -moz-transform:rotate(90deg);
+        -webkit-transform:rotate(90deg);
+        z-index:-10px;
+    }
+    .exitbtn{
+        
+        position:fixed;
+        background-image:url(./img/mora_back.PNG);
+        top:10px;
+        right:10px;
+        width:30px;
+        height:40px;
+        
+    }
+    .peerarea{
+        
+        display:block;
+        
+    }
+    
+    .peerhead{
+        
+        background-image:url(./img/mora_enemy.PNG);
+        display:none;
+        width:230px;
+        height:20px;
+        position:fixed;
+        top:330px;
+        left:100px;
+        background-repeat:no-repeat;
+        background-position:20px 0;
+        -moz-transform:rotate(90deg);
+        -webkit-transform:rotate(90deg);
+        z-index:-20px;
+    }
+    
+    
+    .shitou{
+        top:180px;
+      
+        width:70px;
+        height:70px;
+        position:fixed;
+        left:20px;
+        z-index:200;
+        background-image:url(./img/mora_one.PNG);
+    }
+    .jianzi{
+        
+        top:270px;
+        
+        width:70px;
+        height:70px;
+        position:fixed;
+        left:20px;
+        z-index:200;
+        background-image:url(./img/mora_two.PNG);    }
+    .bu{
+        
+        top:360px;
+       
+        width:70px;
+        height:70px;
+        position:fixed;
+        left:20px;
+        z-index:200;
+        background-image:url(./img/mora_three.PNG);
+    }
+    .moraitems{
+    
+    display:none;
+    position:fixed;
+    z-index:200;
+    
+    
+    }
+    .youwin{
+        display:none;
+        position:fixed;
+        left:70px;
+    
+    }
+    .youlost{
+        
+        display:none;
+        position:fixed;
+        left:70px;
+    
+    }
+    
+    .pjinfo{
+        
+        position:fixed;
+        background-image:url(./img/mora_result_draw.PNG);
+        display:none;
+        width:120px;
+        height:568px;
+        left:70px;
+        
+    }
+
+    .round1info{
+     position:fixed;
+     background-image:url(./img/mora_first.PNG);
+     top:100px;
+     display:none;
+     width:120px;
+     height:430px;
+     
+    
+    }
+    .round2info{
+      position:fixed;
+      display:none;
+      width:120px;
+      height:430px;
+
+       background-image:url(./img/mora_second.PNG);
+    
+    }
+    .round3info{
+        position:fixed;
+        display:none;
+        width:120px;
+        height:430px;
+
+     background-image:url(./img/mora_third.PNG);
+    }
+    
+    #myDiv{
+    
+    display:block;
+    
+    }
+    
+    .harfbg{
+    
+    width:95px;
+    height:568px;
+    display:block;
+    position:fixed;
+    z-index:-100;
+    left:0px;
+    top:0px;
+    background-image:url(./img/mora_back_bottom.PNG);
+    background-repeat: no-repeat;
+    }
+
+</style>
+<div onclick="exit()" class="exitbtn"></div>
+
+<div class="infoarea" id= 'userinfo'>
+<div class=infohead></div>
+</div>
+
+<div class="peerarea" id= 'peerinfo'>
+<div class=peerhead></div>
+</div>
+
+
+<div id="myDiv"></div>
+<div id="round1info" class="round1info"></div>
+<div id="round2info" class="round2info"></div>
+<div id="round3info" class="round3info"></div>
+<div id='pjinfo' class='pjinfo'></div>
+<div class="youwin"> <image  src="./img/mora_result_win.PNG"></div>
+<div class="youlost"><image  src="./img/mora_lastresult_fail.PNG"></div>
+
+
+<div class="mora5"></div>
+<div class="mora2"><div class="mora1"></div></div>
+<div class="mora3"><div class="mora4"></div></div>
+
+
+<div id='pjinfo' class='pjinfo'></div>
+<div class="youwin"> <image  src="./img/mora_result_win.PNG"></div>
+<div class="youlost"><image  src="./img/mora_lastresult_fail.PNG"></div>
+
+<div id="round1info" class="round1info"></div>
+<div id="round2info" class="round2info"></div>
+<div id="round3info" class="round3info"></div>
+
+<div id=moraitems class=moraitems>
+<div class='shitou' onclick='Getguesscover(1,1)'></div><div class='jianzi' onclick='Getguesscover(2,1)'></div><div class='bu' onclick='Getguesscover(3,1)'></div>
+
+</div>
+
+
+<div class="playgo"><image style="margin-top:220px;padding-left:40px;" src="./img/mora_start.PNG"></div>
+
+<div  class="harfbg"></div>
+</body>
+</html>

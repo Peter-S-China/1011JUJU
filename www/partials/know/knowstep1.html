@@ -1,0 +1,604 @@
+<script src="../jquery.js"></script>
+<script>
+    $(document).ready(function(){
+               
+                
+                 getuserlist();
+                 g_timer = setInterval(function(){
+                                 $(".userlist").fadeIn(1000);      
+                                 $(".userlist").fadeOut(1000);
+                                 $(".userlist").empty();
+                                 getuserlist();
+                                 
+                                            
+                        },2000);
+                      
+                      
+                
+                      
+                  $(".tkbtn").click(function(){
+                                          
+                      $(".tkbtn").fadeOut();
+                      $(".onlineuser").fadeOut();
+                      $(".tkarea").fadeIn();
+                      clearInterval(g_timer);
+                                    
+                    });
+                      
+                      $("#lishi").click(function(){
+                                        
+                            getknowflag("历史");
+                            
+                            $(".tkarea").fadeOut();
+                            $(".questionarea").animate({left:'-10px'});
+                            $(".timers").animate({left:'30px'});
+                            autostart();
+                            autocount(-1);
+                                        
+                                        
+                            });
+                      
+                      $("#tiyu").click(function(){
+                                       getknowflag("体育");
+                                       
+                                       $(".tkarea").fadeOut();
+                                       $(".questionarea").animate({left:'-10px'});
+                                       $(".timers").animate({left:'30px'});
+                                       autostart();
+                                       autocount(-1);
+                                        
+                                        });
+                      $("#shehui").click(function(){
+                                         
+                                         getknowflag("社会");
+                                         
+                                         $(".tkarea").fadeOut();
+                                         $(".questionarea").animate({left:'-10px'});
+                                         $(".timers").animate({left:'30px'});
+                                         autostart();
+                                         autocount(-1);
+                                        
+                                        
+                                        
+                                        });
+                      $("#shenghuo").click(function(){
+                                        
+                                           getknowflag("生活");
+                                           
+                                           $(".tkarea").fadeOut();
+                                           $(".questionarea").animate({left:'-10px'});
+                                           $(".timers").animate({left:'30px'});
+                                           autostart();
+                                           autocount(-1);
+                                        
+                                        });
+                      $("#baike").click(function(){
+                                        
+                                        getknowflag("百科");
+                                        
+                                        $(".tkarea").fadeOut();
+                                        $(".questionarea").animate({left:'-10px'});
+                                        $(".timers").animate({left:'30px'});
+                                        autostart();
+                                        autocount(-1);
+                                        
+                                        
+                                        });
+                      $("#wenhua").click(function(){
+                                         
+                                         getknowflag("文化");
+                                         
+                                         $(".tkarea").fadeOut();
+                                         $(".questionarea").animate({left:'-10px'});
+                                         $(".timers").animate({left:'30px'});
+                                         autostart();
+                                         autocount(-1);
+                                        
+                                        
+                                        });
+                      $("#zaxue").click(function(){
+                                        
+                                        getknowflag("杂学");
+                                        
+                                        $(".tkarea").fadeOut();
+                                        $(".questionarea").animate({left:'-10px'});
+                                        $(".timers").animate({left:'30px'});
+                                        autostart();
+                                        autocount(-1);
+                                        
+                                        
+                                        });
+                      $("#renwu").click(function(){
+                                        getknowflag("人物");
+                                        
+                                        $(".tkarea").fadeOut();
+                                        $(".questionarea").animate({left:'-10px'});
+                                        $(".timers").animate({left:'30px'});
+                                        autostart();
+                                        autocount(-1);
+                                        
+                                        
+                                        
+                                        });
+
+                      
+                      
+                      });
+                      
+function getknowflag(tkname){
+    var gkt = "http://203.100.80.135:8080/JujuDemo/servlet/Getknowflag?gamehomenum="+localStorage.g_gamenum + "&category=" + tkname;
+   
+   //htmlobj=$.ajax({url:gkt,async:false});
+   //$("#myDiv").html(htmlobj.responseText);
+   
+  
+  
+   var question="";
+   $.getJSON(
+             gkt,
+             function(data) {
+             $.each(data, function(i) {
+                   
+            question +="<div  id= 'tt"+ [i] +"'>";
+            question +="<div class=questiontitle><div class=questiontt>" + data[i].contents + "</div></div>";
+                    
+            question +="<div id=opp"+ data[i].optiona + [i]+"  class=questionopp onclick=answer('"+ data[i].answer + "','"+ data[i].optiona +"','"+ [i] +"')>" + data[i].optiona + data[i].contenta +"</div>";
+                    
+            question +="<div id=opp"+ data[i].optionb + [i]+" class=questionopp onclick=answer('"+ data[i].answer + "','"+ data[i].optionb +"','"+ [i] +"')>" + data[i].optionb + data[i].contentb +"</div>";
+                    
+            question +="<div id=opp"+ data[i].optionc + [i]+" class=questionopp onclick=answer('"+ data[i].answer + "','"+ data[i].optionc +"','"+ [i] +"')>" + data[i].optionc + data[i].contentc +"</div>";
+                    
+            question +="<div  id=opp"+ data[i].optiond + [i]+" class=questionopp onclick=answer('"+ data[i].answer + "','"+ data[i].optiond +"','"+ [i] +"')>" + data[i].optiond + data[i].contentd +"</div>";
+                    
+            question +="</div>"
+                    
+                    
+                    
+                    });
+             
+             
+             //alert(question);
+             $(".questionarea").append(question);
+             
+             });
+    
+                    
+}
+                      
+function getuserlist(){
+        var gul = "http://203.100.80.135:8080/JujuDemo/servlet/Underpersonlist?gamehomenum="+localStorage.g_gamenum;
+        
+        var userinfo ="";
+        
+        $.getJSON(
+                  gul,
+                  function(data) {
+                  $.each(data.item17, function(i) {
+                         
+                      userinfo += data.item17[i].username + "<br>";
+                         
+                         });
+        
+                  $("#userlist").append(userinfo);
+                  
+                  });
+
+    
+    
+    }
+
+function exit(){
+    
+    clearInterval(g_timer);
+
+    var exiturl = "http://203.100.80.135:8080/JujuDemo/servlet/Exitgamehome?gamehomenum="+ localStorage.g_gamenum + "&id="+ localStorage.g_userid;
+    $.ajax({
+           type: "GET",
+           url: exiturl,
+           dataType: "script"
+           });
+           history.go(-1);
+}
+var score = 0;
+
+function answer(rs,us,n){
+    
+    
+      clearInterval(g_timerc);
+      autocount(-1);
+   
+    
+    //alert("answer " +rs +" useranswer "+ us+"当前题目第"+ n +"个");
+    
+    if( n==9){
+        
+        //alert("总耗时"+alltimes);
+
+        //alert("gameover" + score);
+        var Gknowcover = "http://203.100.80.135:8080/JujuDemo/servlet/Getknowcover?gamehomenum="+ localStorage.g_gamenum + "&userid="+ localStorage.g_userid + "&answertrue="+ score +"&toaltcover="+ score*10 +"&totaltime="+ alltimes*10;
+        
+        //alert(Gknowcover);
+        htmlobj=$.ajax({url:Gknowcover,async:false});
+        //$("#myDiv").html(htmlobj.responseText);
+        
+        autostop();
+        
+        $("#timers").fadeOut(1000);
+        
+        Sendknowcover();
+    
+    }
+    
+    
+    if(rs == us ){
+        score = score+1;
+        
+        $("#opp"+ us + n +"").css("background-color","#009966");
+        $("#tt"+ n + "").delay(1000).fadeOut();
+        
+    
+    }else{
+    
+     $("#opp"+ us + n +"").css("background-color","#8b0000");
+     $("#opp"+ rs + n +"").css("background-color","#009966");
+     $("#tt"+ n + "").delay(1000).fadeOut();
+     
+    
+    }
+
+}
+
+var g_timer;
+
+var alltimes=0;
+
+function autostart(){
+
+g_timer = setInterval(function(){
+    
+    $("#tt"+alltimes+"").remove();
+    clearInterval(g_timerc);
+    autocount(-1);
+                      
+    alltimes = alltimes+1;
+    //alert(alltimes);
+                      if(alltimes >= 10){
+                      autostop();
+                      $("#timers").fadeOut(1000);
+                      var Gknowcover = "http://203.100.80.135:8080/JujuDemo/servlet/Getknowcover?gamehomenum="+ localStorage.g_gamenum + "&userid="+ localStorage.g_userid + "&answertrue="+ score +"&toaltcover="+ score*10 +"&totaltime="+ "100";
+                      
+                      //alert(Gknowcover);
+                      htmlobj=$.ajax({url:Gknowcover,async:false});
+
+                      
+                      Sendknowcover();
+                      
+                      }
+                      
+    },10000);
+    
+    
+
+}
+
+function autostop(){
+clearInterval(g_timer);
+clearInterval(g_timerc);
+}
+
+var g_timerc;
+
+function autocount(n){
+
+g_timerc = setInterval(function(){
+                      
+                       //$("#timers").fadeIn(500);
+                       
+                        n=n+1;
+                        //$("#num"+n).animate({left:'10px;'},1000);
+                       $("#num"+n).fadeIn(500);
+                       $("#num"+n).fadeOut(500);
+                       
+                       
+                       
+                       
+},1000);
+
+
+}
+
+
+function Sendknowcover(){
+   
+
+    //htmlobj=$.ajax({url:sknowcover,async:false});
+    //$("#myDiv").html(htmlobj.responseText);
+    
+    
+    S1endknowcover();
+    $(".phb").fadeOut(2000);
+    
+    g_timer = setInterval(function(){
+                          
+                          $("#scorelist").remove();
+                          
+                          S1endknowcover();
+                          
+                          $(".phb").fadeOut(2000);
+                          
+                          },4000);
+   
+
+}
+function S1endknowcover(){
+     var sknowcover = "http://203.100.80.135:8080/JujuDemo/servlet/Sendknowcover?gamehomenum="+ localStorage.g_gamenum + "&id="+ localStorage.g_userid;
+     
+    //alert(sknowcover);
+    var userinfo="<div id=scorelist><span class=phbitems>名次</span><span class=phbitems>用户名</span><span class=phbitems>时间</span><span class=phbitems>得分</span>";
+    $.getJSON(
+              sknowcover,
+              function(data) {
+              $.each(data, function(i) {
+                     
+                     userinfo += "<span class=phbitems>"+ i +"</span>"+"<span class=phbitems>"+ " " +data[i].username + "</span><span class=phbitems> "+ data[i].toaltcover +" </span><span class=phbitems> "+ data[i].toalttime +"   "+" </span>";
+                     
+                     
+                     
+                     });
+              userinfo += "</div>";
+              
+              $(".phb").append(userinfo);
+              
+              });
+              
+              $(".phb").fadeIn(1000);
+
+
+}
+
+
+
+</script>
+<style>
+    body {
+        
+        font: 14px "Source Sans", helvetica, arial, sans-serif;
+        -moz-user-select: none; /*火狐*/
+        -webkit-user-select: none; /*webkit浏览器*/
+        -ms-user-select: none; /*IE10*/
+        -khtml-user-select: none; /*早期浏览器*/
+        user-select: none;
+        color:black;
+        margin:0;
+        padding:0;
+        background-color:transparent;
+        
+        }
+
+.onlineuser{
+top:80px;
+position:fixed;
+width:320px;
+height:250px;
+background-image:url(./img/questionbg.PNG);
+background-repeat: no-repeat;
+background-position:0;
+
+}
+.userlist{
+margin-top:10px;
+width:300px;
+display:block;
+padding:8px;
+color:white;
+font-size:20px;
+text-align:center;
+}
+.tkbtn{
+    width:128px;
+    height:128px;
+    position:fixed;
+    bottom:80px;
+    text-align:center;
+    left:100px;
+    color:white;
+    background-image:url(./img/start.png);
+    background-repeat: no-repeat;
+    background-position:0;
+    
+}
+.exitbtn{
+
+width:10%;
+height:40px;
+padding:10px;
+position:fixed;
+top:0px;
+text-align:center;
+color:white;
+
+
+}
+.tkarea{
+
+top:80px;
+position:fixed;
+width:300px;
+left:10px;
+height:270px;
+
+display:none;
+background-image:url(./img/tkbg.png);
+background-repeat: no-repeat;
+background-position:0;
+
+
+
+}
+.tkitem{
+    display:block;
+    width:100px;
+    height:48px;
+
+    margin-top:30px;
+    margin-left:3px;
+
+    float:left;
+}
+
+.questionarea{
+    top:40px;
+    left:320px;
+    position:fixed;
+    width:350px;
+    height:568px;
+    color:white;
+    
+    overflow:auto;
+    z-index:100;
+    padding:10px;
+    background-color:transparent;
+    overflow:hidden;
+}
+
+.questiontitle{
+    width:320px;
+    height:250px;
+    background-image:url(./img/questionbg.PNG);
+    background-repeat: no-repeat;
+    background-position:0;
+    margin-top:42px;
+ 
+    
+    
+}
+.questiontt{
+
+padding-top:60px;
+padding-left:10px;
+padding-right:10px;
+font: 16px "Source Sans", helvetica, arial, sans-serif;
+line-height: 20px;
+
+}
+
+
+.questionopp{
+    
+    font: 16px "Source Sans", helvetica, arial, sans-serif;
+    line-height: 20px;
+    background-image:url(./img/yinying.png);
+    background-repeat: no-repeat;
+    background-position:0;
+    margin-top:15px;
+    margin-left:30px;
+    text-align:left;
+    height:20px;
+    display:block;
+    width:250px;
+    padding:5px;
+    border-radius: 4px;
+    
+}
+.timers{
+    width:260px;
+    height:20px;
+    position:fixed;
+    left:280px;
+    top:290px;
+    z-index:300;
+    display:block;
+    
+}
+.items{
+    display:none;
+    float:right;
+    width:15px;
+}
+.phb{
+margin-top:80px;
+margin-left:70px;
+display:none;
+width:300px;
+height:200px;
+background-image:url(./img/phb.PNG);
+background-repeat: no-repeat;
+padding-top:80px;
+}
+#scorelist{
+    width:300px;
+    height:300px;
+    position:fixed;
+    left:10px;
+    top:150px;
+    
+}
+.phbitems{
+color:white;
+font-size:14px;
+width:75px;
+float:left;
+border-bottom:1px solid white;
+text-align:center;
+}
+
+</style>
+
+<div onclick="exit()" class=exitbtn></div>
+
+
+<div class=tkarea>
+
+<span class=tkitem id=lishi></span>
+<span class=tkitem id=tiyu></span>
+<span class=tkitem id=shehui></span>
+
+
+<span class=tkitem id=shenghuo></span>
+<span class=tkitem id=baike></span>
+<span class=tkitem id=wenhua></span>
+
+
+<span class=tkitem id=zaxue></span>
+<span class=tkitem id=renwu></span>
+<span class=tkitem></span>
+
+
+</div>
+
+
+
+<div class=onlineuser>
+<div class=userlist id=userlist>
+
+</div>
+</div>
+
+
+
+<div class=tkbtn>
+</div>
+
+
+<div class=questionarea>
+</div>
+
+<div class=timers id=timers>
+<span class=items id=num0><img src="./img/0.PNG"></span>
+<span class=items id=num1><img src="./img/1.PNG"></span>
+<span class=items id=num2><img src="./img/2.PNG"></span>
+<span class=items id=num3><img src="./img/3.PNG"></span>
+<span class=items id=num4><img src="./img/4.PNG"></span>
+<span class=items id=num5><img src="./img/5.PNG"></span>
+<span class=items id=num6><img src="./img/6.PNG"></span>
+<span class=items id=num7><img src="./img/7.PNG"></span>
+<span class=items id=num8><img src="./img/8.PNG"></span>
+<span class=items id=num9><img src="./img/9.PNG"></span>
+</div>
+
+<div class="phb">
+
+</div>
+
+
+<div id="myDiv"></div>

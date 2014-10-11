@@ -1,0 +1,167 @@
+	<html>
+    <head>
+     <script src="../jquery.js"></script>
+        <script>
+            
+           //localStorage.g_gamenum= '0623';
+            
+            function getuserlist(){
+                
+             var jcontact = "http://203.100.80.135:8080/JujuDemo/servlet/Underpersonlist?gamehomenum=" + localStorage.g_gamenum;
+
+
+
+                
+                var userinfo ="<div id= 'userinfo'>";
+                var usernum;
+                
+                $.getJSON(
+                          jcontact,
+                          function(data) {
+                          
+                          //console.log(JSON.stringify(data));
+                          
+                          $.each(data.item17, function(i) {
+                                 
+                                 if(data.item17[i].gameuserid=='1'){
+                                 
+                                 userinfo += "<div class=whoiswopart1> <br>法官:" + data.item17[i].username + "<div class=whoisworight></div></div>";
+                                 
+                                 
+                                 }else{
+                                 
+                                 userinfo += "<div class=whoiswopart2>" + data.item17[i].username + "</div>"
+                                 
+                                 }
+                                 
+                                 
+                                 
+                                 usernum = data.item17[i].sum;
+                                 
+                                 
+                                 
+                                 
+                                 });
+                          
+                          
+                          userinfo += "<div STYLE='margin:10px;border-radius: 6px;border: 1px solid #FF6600;background-color:#FF3300;color:white;padding:10px;'>在线人数:" + usernum + "</div>";
+                          
+                          userinfo += "</div> ";
+                          
+                          //alert(userinfo);
+                          
+                          $("#userlist").append(userinfo);
+                          
+                          
+                          });
+                          
+                          
+                          
+            }
+
+            $(document).ready(function(){
+                             
+                              getuserlist();
+                              setInterval(function(){waiting();},6000);
+                              
+                              });
+                              
+        function waiting(){
+            
+                              $("#userinfo").remove();
+                              getuserlist();
+                              $("#userlist").fadeIn(3000);
+                              $("#userlist").fadeOut(3000);
+                              
+                              
+                              
+                              
+                              }
+                              
+        function reload(){
+            
+            location.reload();
+                              
+        }
+          
+          
+          
+            </script>
+  
+    </head>
+    
+    <style>
+        
+        
+        .whoiswopart1{
+            
+            background-image: url("./img/fghead.png");
+            color:white;
+            font: 16px "Source Sans", helvetica, arial, sans-serif;
+            text-shadow: 1px 1px  3px #000;
+            left:2px;
+            top:0;
+            width:320px;
+            height:62px;
+            position:fixed;
+            text-align:center;
+            
+            height:60px;
+            display:block;
+        
+            
+            
+        }
+    
+    .whoisworight{
+        
+        width:60px;
+        height:123px;
+        background-image: url("./img/faguan.png");
+        top:0px;
+        position:fixed;
+        right:0px;
+        
+    }
+    
+
+        .whoiswopart2{
+            margin:10px;
+            border-radius: 6px;
+            border: 1px solid #FFCC00;
+            background-color:#FFCC00;
+            color:white;
+            padding:10px;
+            display:block;
+            width:260px;
+            
+        }
+    
+    #userlist{
+    
+    overflow:auto;
+    top:62px;
+    left:0px;
+    width:320px;
+    height:400px;
+  
+    position:fixed;
+    }
+ </style>
+
+<body>
+        
+       
+            
+            
+            
+            <div id="userlist" >
+                
+            </div>
+            
+      
+        
+   
+        
+    </body>
+</html>

@@ -1,0 +1,234 @@
+<html>
+<body style="background-color:transparent;">
+    <script src="../jquery.js"></script>
+   <style>
+        
+        body{
+            
+            -moz-user-select: none; /*火狐*/
+            -webkit-user-select: none; /*webkit浏览器*/
+            -ms-user-select: none; /*IE10*/
+            -khtml-user-select: none; /*早期浏览器*/
+            user-select: none;
+            background: transparent;
+        }
+    
+  .whoiswopart2{
+    margin:10px;
+    border-radius: 6px;
+    border: 1px solid #FFCC00;
+    background-color:#FFCC00;
+    color:white;
+    padding:10px;
+    text-align:center;
+    
+    
+    }
+  
+  .whoiswopart1{
+  
+  background-image: url("./img/fghead.PNG");
+  color:white;
+  font: 16px "Source Sans", helvetica, arial, sans-serif;
+
+  right:0; top:0;
+  width:320px;
+  position:fixed;
+  text-align:center;
+  margin-bottom:60px;
+  height:60px;
+  display:block;
+
+
+    }
+    
+    .whoisworight{
+    
+    width:60px;
+    height:123px;
+    
+    float:right;
+    background-image: url("./img/faguan.png");
+    
+    background-repeat: no-repeat;
+    margin-top:-60px;
+    position:fixed;
+    right:0px;
+   
+
+    
+    
+    }
+   
+   .flip{
+       padding:10px;
+       text-align:center;
+       background:#FF9900;
+       border:solid 1px #FF9900;
+       border-radius: 6px;
+       display:block;
+       width:320px;
+       margin-bottom:10px;
+       margin-left:0px;
+       color:white;
+       font: 16px "Source Sans", helvetica, arial, sans-serif;
+       text-shadow: 1px 1px  3px #000;
+   }
+   
+   .reload{
+       padding:10px;
+       text-align:center;
+       background:#FF9900;
+       border:solid 1px #FF9900;
+       border-radius: 6px;
+       display:block;
+       width:260px;
+       margin-bottom:10px;
+       margin-left:10px;
+       color:white;
+       font: 16px "Source Sans", helvetica, arial, sans-serif;
+       text-shadow: 1px 1px  3px #000;
+       
+   }
+   .joinuserlist{
+   
+   height:280px;
+   overflow:auto;
+   
+   
+   }
+   .pointfg{
+   
+   padding:10px;
+   text-align:center;
+   background:#FF9900;
+   border:solid 1px #FF9900;
+   border-radius: 6px;
+   display:block;
+   width:40px;
+   
+   margin-left:0px;
+   color:white;
+   font: 16px "Source Sans", helvetica, arial, sans-serif;
+   text-shadow: 1px 1px  3px #000;
+   
+   }
+   
+       </style>
+   
+    <script>
+        
+      //var jcontact = "http://203.100.80.135:8080/JujuDemo/servlet/Underpersonlist?gamehomenum="+localStorage.g_gamenum;
+        
+        //var jcontact = "http://203.100.80.135:8080/JujuDemo/servlet/Underpersonlist?gamehomenum="+"3745";
+        
+        //alert(jcontact);
+        
+        function getuserlist(){
+         
+         
+       var jcontact = "http://203.100.80.135:8080/JujuDemo/servlet/Underpersonlist?gamehomenum="+localStorage.g_gamenum;
+         var userinfo ="<div id= 'userinfo'>";
+         var userinfo2 ="<div id= 'userinfo2'>";
+         var usernum;
+         
+         $.getJSON(
+                  jcontact,
+                  function(data) {
+                  $.each(data.item17, function(i) {
+                         
+                if(data.item17[i].gameuserid=='1'){
+                         
+    userinfo += "<h3>法官:" + data.item17[i].username + "</h3>";
+                         
+                         }else{
+                         
+    userinfo2 += "<div class=whoiswopart2 >" + data.item17[i].username + "<span class=pointfg id='pointfg"+ data.item17[i].userid +"' onclick='whoisfg("+ data.item17[i].userid +")'> 指定法官</span></div>"
+                         
+                         }
+                         
+                  
+                         
+                         usernum = data.item17[i].sum;
+                         
+                 
+                         
+                         
+                         });
+                   
+                   
+                   
+                   
+                   userinfo  += "</div>";
+                   userinfo2 +="</div>";
+                   
+                   //alert(userinfo);
+                   //alert(userinfo2);
+                   
+                   $(".whoiswopart1").append(userinfo);
+                   $(".joinuserlist").append(userinfo2);
+                   $("#usernum").append("当前参与游戏用户 " + usernum + " 人");
+                   
+                  });
+                  
+
+        
+        }
+      
+      $(document).ready(function(){
+                    
+                  
+                    getuserlist();
+               
+                        
+                        $("button").click(function(){
+                            location.reload();
+                                        
+                                          });
+                        });
+          
+          
+          //setInterval("myrefresh()",2000);
+     
+     function whoisfg(uid){
+     
+     
+     var fguserurl = "http://203.100.80.135:8080/JujuDemo/servlet/Underappointedjudges?gamehomenum=" + localStorage.g_gamenum + "&newjudeid="+ uid +"&judeid="+ localStorage.g_userid;
+     
+     //alert(fguserurl);
+     
+     htmlobj=$.ajax({url:fguserurl,async:false});
+     $("#pointfg").html(htmlobj.responseText);
+
+     //alert("ccc");
+     $("#pointfg" + uid + "").remove();
+     
+     
+       }
+     
+       
+          function Delu_list(){
+        
+           $("#userinfo").remove();
+        
+          }
+    
+ </script>
+    
+
+<div style="margin-top:10px;">
+  <div id="userlist">
+    <div class=whoiswopart1></div>
+    <div style="display:block;height:50px;"></div>
+    <div class=joinuserlist></div>
+    <div id='usernum' STYLE='margin:10px;border-radius: 6px;border: 1px solid #FF6600;background-color:#FF3300;color:white;padding:10px;'></div>
+   
+  </div>
+        
+    </div>
+    
+  
+    
+
+
+</body></html>

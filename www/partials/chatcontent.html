@@ -1,0 +1,84 @@
+<script src="./jquery.js"></script>
+<script>
+    
+    
+    $(document).ready(function(){
+                      
+                      ShowUserList();
+                      setInterval(function(){
+                                  $(".userlist").hide();
+                                  $(".userlist").empty();
+                                  ShowUserList();
+                                  $(".userlist").show(1000);
+                                
+                                  
+                                  },3000);
+                      
+                           });
+                      
+
+
+function ShowUserList(){
+
+//localStorage.tmpurl = "http://203.100.80.135:8080/JujuDemo/servlet/SendMessage?homenum=6518";
+
+
+var userinfo="<div >";
+
+$.getJSON(
+          localStorage.tmpurl,
+          function(data) {
+          $.each(data.item8, function(i) {
+                 
+    userinfo += "<div  class='fff'>" + data.item8[i].username + "" + data.item8[i].message +"</div>";
+                 
+                 
+                 });
+          userinfo += "</div>";
+          
+          //alert(userinfo);
+          
+          $(".userlist").append(userinfo);
+          
+         
+          });
+}
+
+</script>
+<style>
+    
+    body{
+        
+        -moz-user-select: none; /*火狐*/
+        -webkit-user-select: none; /*webkit浏览器*/
+        -ms-user-select: none; /*IE10*/
+        -khtml-user-select: none; /*早期浏览器*/
+        user-select: none;
+        background-color:transparent;
+        text-shadow: 1px 1px  3px #000;
+        margin:0px;
+        padding:0px;
+        font: 14px "Source Sans", helvetica, arial, sans-serif;
+        font-weight: 200;
+     }
+
+
+.userlist{
+    width:320px;
+    height:100px;
+    color:white;
+    overflow:auto;
+
+}
+.fff{
+    line-height:20px;
+}
+</style>
+
+
+<div class="userlist">
+ 
+</div>
+
+</div>
+

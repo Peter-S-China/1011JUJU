@@ -1,0 +1,253 @@
+<html>
+<body style="background-color:transparent;">
+    <script src="../jquery.js"></script>
+    
+    <style>
+        
+        body{
+            font: 14px "Source Sans", helvetica, arial, sans-serif;
+            -moz-user-select: none; /*火狐*/
+            -webkit-user-select: none; /*webkit浏览器*/
+            -ms-user-select: none; /*IE10*/
+            -khtml-user-select: none; /*早期浏览器*/
+            user-select: none;
+            text-shadow: 1px 1px  3px #000;
+            margin:0px;
+            padding:0px;
+            
+        }
+    
+    
+    .flip2{
+        padding:10px;
+        text-align:center;
+        background:#CCCCCC;
+        border:solid 1px #CCCCCC;
+        border-radius: 6px;
+        display:block;
+        width:270px;
+        height:30px;
+        margin-bottom:10px;
+        margin-left:10px;
+        color:white;
+        font: 16px "Source Sans", helvetica, arial, sans-serif;
+        text-shadow: 1px 1px  3px #000;
+      
+      
+        
+    }
+    
+    .flip{
+    padding:10px;
+    text-align:center;
+    background:#FF9900;
+    border:solid 1px #FF9900;
+    border-radius: 6px;
+    display:block;
+    width:270px;
+    margin-bottom:10px;
+    margin-left:10px;
+    color:white;
+    font: 16px "Source Sans", helvetica, arial, sans-serif;
+    text-shadow: 1px 1px  3px #000;
+    }
+    .ccd{
+    text-align:left;
+    background:#66CC66;
+    display:none;
+    position:fixed;
+    height:20px;
+    width:60px;
+    left:0px;
+    border-radius: 6px;
+    border:0px;
+    margin-top:-30px;
+    padding:10px;
+    
+    
+    }
+    
+    .showarea{
+    
+    border:0px;
+    background:transparent;
+    overflow:auto;
+    height:500px;
+    width:320px;
+    position:fixed:
+    top:60px;
+    left:0px;
+    
+    }
+    .TTT{
+    border:0px;
+    margin-top:-10px;
+    float:right;
+    background-color:#FF6600;
+    width:50px;
+    height:18px;
+    
+    padding:10px;
+    border-radius: 6px;
+  
+     
+    }
+    
+    .showword{
+    
+    position:fixed;
+    left:0px;
+    width:40px;
+    height:10px;
+    margin-top:-6px;
+    padding:10px;
+    
+    }
+    
+    .showTT
+    {
+        position:fixed;
+ 
+        width:40px;
+        height:20px;
+        right:60px;
+        padding:10px;
+        margin-top:-30px;
+        border:1px solid #ccc;
+        
+    }
+    
+    
+        </style>
+    
+    
+   
+
+    
+    
+    <script>
+       
+       function getuserlist(){
+            
+         var jcontact = "http://203.100.80.135:8080/JujuDemo/servlet/Startundercover?gamehomenum=" + localStorage.g_gamenum;
+    
+         
+         var userinfo ="<div id= 'userinfo'>";
+         var usernum;
+         
+         $.getJSON(
+                  jcontact,
+                  function(data) {
+                 
+                   $.each(data, function(i) {
+                          
+                         if(data[i].islive== '0'){
+                         userinfo += "<div class='flip2'> ";
+                         userinfo += data[i].username + "";
+                         userinfo += "状态:挂了</div>";
+                         /*
+                         if(data[i].ldentity == '1'){
+                         
+                         userinfo +=  "<p class=ccd > " + "平民词汇是<"+ data[i].phrase+"></p></div>";
+                         
+                         }else if(data[i].ldentity == '0'){
+                         
+                         userinfo +=  "<p class=ccd > " + "卧底词汇是<"+ data[i].phrase+"></p></div>";
+                         
+                         }
+                         */
+                         
+                         }else if(data[i].islive== '1'){
+                         
+                        userinfo += "<div id=t"+ data[i].userid + "    class='flip'><div class='showword' onclick='showwordpp()'></div> ";
+                         userinfo += data[i].username;
+                         userinfo += "";
+                          
+                         userinfo += "<div class='TTT' onclick='Delu_list("+ data[i].userid +");'>踢</div>";
+                  
+                        
+                         userinfo +=  "<p class='ccd' onclick='hiddenwordpp()' > " + "<b>"+ data[i].phrase+"</b></p></div>";
+                         
+                 
+                         
+                         }
+                       
+                         
+                         });
+                   
+                
+                   userinfo += "";
+                   
+                   //alert(userinfo);
+                   
+                   $("#userlist").append(userinfo);
+                   
+                   
+                  });
+                  
+
+        
+        }
+      
+      
+      $(document).ready(function(){
+                        
+                        getuserlist();
+                        
+                        });
+                        
+                       
+                       function showwordpp(){
+                           
+                         $("p").show();
+                       }
+                       function hiddenwordpp(){
+                           
+                        $("p").hide();
+                      }
+    
+    
+function Delu_list(uid){
+          
+              
+        var duserurl = "http://203.100.80.135:8080/JujuDemo/servlet/Undercoverkickout?gamehomenum=" + localStorage.g_gamenum + "&userid="+ uid;
+        
+        //alert(duserurl);
+        
+        htmlobj=$.ajax({url:duserurl,async:false});
+        $("#myDiv").html(htmlobj.responseText);
+/*
+        $.getJSON(duserurl,function(data) {
+            $.each(data, function(i) {
+                 
+             
+           
+                 });
+          });
+*/
+
+
+       $("#t"+uid).css("background-color","#ccc");
+       $("#t"+uid).css("border","0px");
+
+      //$("#userlist").empty();
+      //reloaduserlist();
+    
+     }
+    
+    
+    
+        </script>
+   
+   <div style="margin-top:10px;width:300px;overview:auto;">
+       
+       <div class="showarea" id="userlist" >
+           
+       </div>
+       
+   </div>
+
+  
+  <div id="myDiv" style="display:none;"></div>
+  
+</body></html>

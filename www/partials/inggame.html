@@ -1,0 +1,27 @@
+<div class="gamedatingbg">
+
+
+
+
+
+<div ng-controller="createNewGameCtrl">
+    
+   <a class="backgamecenter" ng-click="slidePage('/step3')">
+        返回大厅
+    </a>
+    <a class="creatnewgame" ng-click="creatNewGame()">新建游戏 + </a>
+</div>
+
+
+<div  class="gameinfoarea" ng-controller="ingGameListCtrl">
+   
+   
+    <lable  style="width:320px;padding:10px;font-size:14px; border-bottom:1px solid #ccc;" >正在进行中的游戏</lable>
+    
+        <div class="gameitemsinfo" ng-repeat="item in items" ng-click="joinGame(item)">
+             {{item.username}}    <lable  ng-show="message">{{ message }}</lable>
+        </div>
+   
+    
+</div>
+</div>

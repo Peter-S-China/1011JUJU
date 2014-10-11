@@ -1,0 +1,93 @@
+<html>
+    <head>
+        <script src="../jquery.js"></script>
+        <script>
+            $(document).ready(function(){
+                              
+                              setInterval(function(){btnshow();},1000);
+
+                              });
+                              
+                              function btnshow(){
+                               
+                               $(".flowershow").animate({left:'70px'});
+                               $(".flowershow").fadeIn(2000);
+                         
+                              
+                              
+                              }
+           
+            </script>
+    </head>
+    <style>
+        body{
+            
+            -moz-user-select: none; /*火狐*/
+            -webkit-user-select: none; /*webkit浏览器*/
+            -ms-user-select: none; /*IE10*/
+            -khtml-user-select: none; /*早期浏览器*/
+            user-select: none;
+            background: transparent;
+            margin: 0;
+            padding: 0;
+         }
+    .jgchcontent{
+        
+        top:10px;
+     position:fixed;
+        width:328px;
+        height:328px;
+        background-image: url("./img/dg.PNG");
+        left:-3px;
+        z-index:100;
+    
+   }
+    
+    .btnshow{
+    
+    border:2px solid #ccc;
+    width:120px;
+    height:120px;
+    position:fixed;
+    bottom:12px;
+    left:94px;
+    background-image: url("./img/1.png");
+    border-radius: 69px;
+    }
+    .flowershow{
+    
+
+position:fixed;
+width:187px;
+height:172px;
+background-image: url("./img/hua.PNG");
+left:-170px;
+top:90px;
+z-index:100;
+background-repeat:no-repeat;
+ }
+    .jgchhead{
+    
+    border:1px solid #ccc;
+    height:92px;
+    width:320px;
+    }
+    
+  
+    
+    </style>
+    <body>
+        
+     
+        
+        <div class="jgchcontent">
+            
+            <div class="flowershow">
+                
+            </div>
+            
+        </div>
+        
+        
+    </body>
+</html>

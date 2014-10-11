@@ -1,0 +1,360 @@
+<script src="../jquery.js"></script>
+<script>
+    
+    var  g_timer;
+    $(document).ready(function(){
+                      
+                      
+                      
+                         $(".yourrole").click(function(){
+                                    
+                            if(localStorage.rolenum == '1'){
+                            $(".policerole").animate({bottom:'56px'},"slow");
+                            $(".policerole").animate({height:'toggle'});
+                                        }
+                            if(localStorage.rolenum == '2'){
+                            $(".killerrole").animate({bottom:'56px'},"slow");
+                            $(".killerrole").animate({height:'toggle'});
+                                        }
+                            if(localStorage.rolenum == '3'){
+                            $(".peoplerole").animate({bottom:'56px'},"slow");
+                            $(".peoplerole").animate({height:'toggle'});
+                                        }
+                          });
+                      
+                      
+                //g_timer = setInterval(function(){loadData();},1000);
+                    
+                      loadData();
+                      
+                      });
+                      
+function loadData(){
+    
+    //localStorage.rolenum = '1';
+    
+    //警察获取列表
+    if(localStorage.rolenum == '1'){
+        
+        //	$(".gameuserlist").empty();
+        jcgetgameuserlist();
+        
+        $(".gameuserlist").click(function(){
+                                 
+                                 $(".roleinfo").animate({ left:'toggle'});
+                                 
+                                 });
+                                 
+    }
+    //杀手获取列表
+    if(localStorage.rolenum == '2'){
+        //$(".gameuserlist").empty();
+        pmgetgameuserlist();
+        
+        
+    }
+    //平民获取列表
+    if(localStorage.rolenum == '3'){
+        
+        //$(".gameuserlist").empty();
+        
+        pmgetgameuserlist();
+        
+        
+    }
+    
+}
+
+//参与者警察获取游戏人员列表
+function jcgetgameuserlist(){
+    
+    var gameuserurl = "http://203.100.80.135:8080/JujuDemo/servlet/Sendtojingcha?gamehomenum="+localStorage.g_gamenum;
+    
+    //var gameuserurl = "http://203.100.80.135:8080/JujuDemo/servlet/Sendtojingcha?gamehomenum=4023";
+    $.getJSON(
+           gameuserurl,
+           function(data) {
+           var userinfo = "";
+           $.each(data.item19, function(i) {
+                  
+            if(data.item19[i].islive =='1'){
+                  
+                userinfo += "<div class='islive'><div style='padding-top:20px;'><div class='roleinfo'></div><div class='rolehide'>";
+                  
+                  if(data.item19[i].ldentity =='1'){
+                  
+                   userinfo += "警察";
+                  
+                  }else  if(data.item19[i].ldentity =='2'){
+                  
+                  userinfo += "杀手";
+                  
+                  }else  if(data.item19[i].ldentity =='3'){
+                  
+                  userinfo += "平民";
+                  
+                  }
+
+                  
+                  
+                userinfo +="</div>" + cusrname(data.item19[i].userid) +  data.item19[i].username + "</div></div>";
+                  
+                  }else if(data.item19[i].islive =='0'){
+                  
+                  userinfo += "<div class='islive'><div style='padding-top:20px;'>" + data.item19[i].username + "</div></div>";
+                  }
+                  
+                  
+                  });
+          
+            //alert(userinfo);
+           
+           $(".gameuserlist").append(userinfo);
+           
+           });
+
+
+
+
+}
+//平民获取游戏人员列表
+
+function pmgetgameuserlist(){
+    
+    var gameuserurl = "http://203.100.80.135:8080/JujuDemo/servlet/Sendjoinkilllist?gamehomenum="+localStorage.g_gamenum;
+    //var gameuserurl = "http://203.100.80.135:8080/JujuDemo/servlet/Sendjoinkilllist?gamehomenum=4023";
+    
+    
+    $.getJSON(
+              gameuserurl,
+              function(data) {
+              
+              var userinfo = "";
+              
+              $.each(data.item19, function(i) {
+                     
+                     if(data.item19[i].islive =='1'){
+                     
+                     userinfo += "<div class='islive'><div style='padding-top:20px;'>" + cusrname(data.item19[i].userid) +  data.item19[i].username + "</div></div>";
+                     
+                     }else if(data.item19[i].islive =='0'){
+                     
+                     userinfo += "<div class='nolive'><div style='padding-top:20px;'>" + data.item19[i].username + "</div></div>";
+                     }
+                     
+                     
+                     });
+              
+              //alert(userinfo);
+              
+              $(".gameuserlist").append(userinfo);
+              
+              });
+              
+              
+              
+              
+}
+
+function cusrname(item){
+    
+    //alert(item);
+    
+   var cc;
+   
+    if(item == localStorage.g_userid){
+     
+     cc = "<B>您的游戏用户名</B>";
+    
+    }else{
+    
+     cc ="";
+    }
+
+   return cc;
+}
+
+function reload(){
+    
+    
+    location.reload();
+    
+}
+</script>
+
+<style>
+    
+    body{
+        font: 14px "Source Sans", helvetica, arial, sans-serif;
+        -moz-user-select: none; /*火狐*/
+        -webkit-user-select: none; /*webkit浏览器*/
+        -ms-user-select: none; /*IE10*/
+        -khtml-user-select: none; /*早期浏览器*/
+        user-select: none;
+        }
+
+.gameheadarea{
+    position:fixed;
+    top:40px;
+    width:305px;
+    height:80px;
+    display:block;
+    left:14px;
+    background-image:url("./img/FG.PNG");
+    background-repeat: no-repeat;
+    z-index:150;
+}
+
+.gameuserlist{
+position:fixed;
+top:110px;
+left:18px;
+width:305px;
+height:360px;
+overflow:auto;
+display:block;
+z-index:120;
+
+
+}
+
+.rolearea{
+position:fixed;
+bottom:10px;
+left:9px;
+width:320px;
+height:55px;
+display:block;
+background-color:black;
+opacity:0.50;
+z-index:10;
+background-image:url("./img/bottom.png");
+background-repeat: no-repeat;
+}
+.policerole{
+   display:block;
+   position:fixed;
+   background-image:url("./img/policerole.PNG");
+   width:320px;
+   height:45px;
+   background-position: 48% center;
+   background-repeat: no-repeat;
+   bottom:-60px;
+   z-index:90;
+   
+   
+}
+.killerrole{
+    display:block;
+    position:fixed;
+    background-image:url("./img/killerrole.PNG");
+    width:320px;
+    height:45px;
+    background-position: 48% center;
+    background-repeat: no-repeat;
+    bottom:-60px;
+    z-index:90;
+}
+.peoplerole{
+    display:block;
+    position:fixed;
+    background-image:url("./img/peoplerole.PNG");
+    width:320px;
+    height:45px;
+    background-position: 48% center;
+    background-repeat: no-repeat;
+    bottom:-60px;
+    z-index:90;
+}
+
+.islive{
+background-image:url("./img/LBB.PNG");
+
+color:white;
+width:279px;
+height:51px;
+background-repeat: no-repeat;
+display:block;
+text-align:center;
+margin-top:-2px;
+-webkit-box-shadow: 3px 3px 3px #000;
+-moz-box-shadow: 3px 3px 3px #000;
+box-shadow: 3px 3px 3px #000;
+
+}
+.nolive{
+    
+
+background-color:#ccc;
+color:white;
+width:279px;
+height:51px;
+background-repeat: no-repeat;
+display:block;
+text-align:center;
+margin-top:-2px;
+-webkit-box-shadow: 3px 3px 3px #000;
+-moz-box-shadow: 3px 3px 3px #000;
+box-shadow: 3px 3px 3px #000;
+
+}
+
+.roleinfo{
+    background-image:url("./img/firebtn.PNG");
+    width:45px;
+    height:45px;
+    margin-left:5px;
+    margin-top:-16px;
+    position:fixed;
+    z-index:190;
+  
+    
+}
+.rolehide{
+    width:45px;
+    height:45px;
+    margin-left:5px;
+    margin-top:-1px;
+    position:fixed;
+    z-index:180;
+    
+
+
+}
+
+
+
+.yourrole{
+    background-image:url("./img/yourole.PNG");
+    display:block;
+    width:170px;
+    height:43px;
+    margin-left:70px;
+    position:fixed;
+    z-index:200;
+    background-repeat:no-repeat;
+    position:fixed;
+    bottom:10px;
+    
+ 
+    
+}
+
+
+</style>
+
+<div class="gameheadarea" onclick="reload()">
+    
+</div>
+
+
+<div class="gameuserlist">
+
+</div>
+
+
+
+<div class="policerole"></div>
+<div class="killerrole"></div>
+<div class="peoplerole"></div>
+<div class="yourrole"></div>

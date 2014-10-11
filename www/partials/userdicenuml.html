@@ -1,0 +1,36 @@
+<script language="JavaScript">
+    function reWrite(){
+        // assemble content for new window
+        var newContent = "<html><head><title>A New Doc</title></head>"
+        newContent += "<body bgcolor='aqua'>"
+        
+        newContent += localStorage.g_gamenum;
+        
+        var getdicenumlist = "http://124.127.127.186:8080/JujuDemo/servlet/SendbosonsCover?gamehomenum="+localStorage.g_gamenum+"&cate=0";
+        
+        $.getJSON(
+                  getdicenumlist,
+                  function(data) {
+                  $.each(data, function(i) {
+                         
+                         $("#featured1").append( data[i].bosonscover)
+                         
+                         
+                         });
+                  });
+        
+        newContent += ""
+        newContent += "</body></html>"
+        // write HTML to new window document
+        document.write(newContent)
+        document.close() // close layout stream
+    }
+</script>
+<form>
+
+<input type="button" value="Replace Content" onClick="reWrite()">
+
+</form>
+
+<div id="featured2">
+<div>

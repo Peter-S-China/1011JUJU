@@ -1,0 +1,85 @@
+<div class="gamedatingbg">
+
+<div  ng-controller="LoginRoomCtrl">
+ <lable  class="exithomebtn" ng-click="exhome()"></lable>
+ 
+<lable class="viewalluser"
+        ng-click="slidePage('/viewuserlist','modal')">
+</lable>
+    
+</div>
+
+    
+<div class="anonymousarea" ng-controller="AnonymousChatCtrl">
+    
+<div style="width:320px; height:98px;margin-top:5px;overflow:hidden;"  ng-click="gotochat()">
+
+
+
+<iframe ng-click="gotochat()"
+    allowtransparency="true"
+    style="background: transparent;border:0px;"
+    src="partials/chatcontent.html"
+   frameborder="no" border="0" marginwidth="0" marginheight="0" scrolling="no" allowtransparency="yes" height="80" width="200" ">
+</iframe>
+
+
+
+</div>
+</div>
+
+<div class="inggamearea" ng-controller="NavtoGameCtrl">
+
+<span  style="float:left;" ng-click="autoNewgame()">
+<img class=img2 src="{{newgameicon}}"/>
+</span>
+
+<span style="float:left;" ng-repeat="item in items" ng-click="joinGame(item)">
+<span >
+    <img class=img2 src="{{gameiconsrc}}"/>
+</span>
+<span style="width:60px;display:block;margin-top:-12px;text-align:center;font-size:12px; text-shadow: 1px 1px  3px #000;">
+{{item.username}}
+</span>
+
+</span>
+
+
+
+
+
+
+<div class="gameiconarea" >
+    
+    <div class="topcoat-button-kill" ng-click="gotokill()">
+        <span style="width:90px;display:block;margin-top:90px;">杀人游戏</span></div>
+    
+    <div class="topcoat-button-whoiswo" ng-click="gotowhoiswo()">
+        <span style="width:90px;display:block;margin-top:90px;">谁是卧底</span></div>
+    
+    <div class="topcoat-button-nophone" ng-click="gotonophone()">
+        <span style="width:90px;display:block;margin-top:90px;">NOPHONE</span></div>
+    
+    <div class="topcoat-button-zf" ng-click="gotozf()">
+        <span style="width:90px;display:block;margin-top:90px;">知否</span></div>
+    
+    <div class="topcoat-button-dice" ng-click="gotodice()">
+        <span style="width:90px;display:block;margin-top:90px;">摇骰子</span></div>
+    
+    <div class="topcoat-button-mora" ng-click="gotomora()">
+        <span style="width:90px;display:block;margin-top:90px;">猜拳</span></div>
+    
+    <div class="topcoat-button-jgch" ng-click="gotojgch()">
+        <span style="width:90px;display:block;margin-top:90px;">击鼓传花</span></div>
+    
+    <div class="topcoat-button-dmx" ng-click="slidePage('/dmxview')">
+        <span style="width:90px;display:block;margin-top:90px;">大冒险</span></div>
+    
+    <div class="topcoat-button-cbs" ng-click="">
+    <span style="width:90px;display:block;margin-top:90px;"></span></div>
+    
+</div>
+</div>
+
+
+</div>

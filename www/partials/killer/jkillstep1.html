@@ -1,0 +1,156 @@
+<script src="../jquery.js"></script>
+<style>
+    
+    body{
+        font: 14px "Source Sans", helvetica, arial, sans-serif;
+        -moz-user-select: none; /*火狐*/
+        -webkit-user-select: none; /*webkit浏览器*/
+        -ms-user-select: none; /*IE10*/
+        -khtml-user-select: none; /*早期浏览器*/
+        user-select: none;
+        background: transparent;
+        overflow: auto;
+        
+    }
+.userlist{
+
+font: 14px "Source Sans", helvetica, arial, sans-serif;
+margin-top:10px;
+}
+.fg{
+
+background-image:url("./img/FG.PNG");
+width:295px;
+height:80px;
+background-repeat: no-repeat;
+display:block;
+margin-left:6px;
+
+position:fixed;
+z-index:100;
+top:0px;
+}
+.fginfo{
+    color:white;
+    float:right;
+    padding-top:44px;
+    padding-right:140px;
+}
+
+.pm{
+
+z-index:90;
+background-image:url("./img/LBB.PNG");
+margin-left:14px;
+width:279px;
+height:51px;
+background-repeat: no-repeat;
+display:block;
+text-align:center;
+margin-top:-2px;
+-webkit-box-shadow: 3px 3px 3px #000;
+-moz-box-shadow: 3px 3px 3px #000;
+box-shadow: 3px 3px 3px #000;
+
+
+
+}
+.pminfo{
+    position:absolute;
+    color:white;
+    padding-top:20px;
+    margin-left:-30px;
+}
+
+
+</style>
+
+<script>
+    $(document).ready(function(){
+            
+            
+           getgameuserlist();
+           setInterval(function(){firstsetup();},6000);
+            
+                   
+     });
+     
+     function firstsetup(){
+         
+         $("#gameuser2").fadeIn(3000);
+         getgameuserlist();
+         $("#gameuser2").fadeOut(3000);
+         $("#gameuser2").empty();
+       
+    }
+
+
+                     //杀人游戏第一步骤 获取参与游戏人员列表
+            function getgameuserlist(){
+                         
+                        var gameuserurl = "http://203.100.80.135:8080/JujuDemo/servlet/Killpersonlist?gamehomenum="+localStorage.g_gamenum;
+                         
+                         //var gameuserurl = "http://203.100.80.135:8080/JujuDemo/servlet/Killpersonlist?gamehomenum="+"0378";
+                         //alert(gameuserurl);
+                         
+                         var userinfo = "<div id='userlist1'>";
+                         
+                         var userinfo2 = "<div id='userlist2'>";
+                         $.getJSON(
+                                   gameuserurl,
+                                   function(data) {
+                                   $.each(data.item17, function(i) {
+                                          
+                                if(data.item17[i].gameuserid == '1'){
+                                
+        userinfo += '<div class=fg><span class=fginfo>'+ data.item17[i].username +'</span></div>';
+          
+       userinfo += "";
+                                          
+                                          }else{
+     
+        userinfo2 += '<div  class=pm ><span class=pminfo>'+ data.item17[i].username +'</span>';
+        userinfo2 += '</div>';
+                                          
+                                        }
+                                          
+                                          
+                                          });
+                                  userinfo += "</div> ";
+                                  userinfo2 += "</div> ";
+                             
+                                  //alert(userinfo);
+                                  //alert(userinfo2);
+                                   
+                                   $("#gameuser").append(userinfo);
+                                   $("#gameuser2").append(userinfo2);
+                                   
+                                   });
+
+                     
+                     
+                     
+                     }
+
+function reload(){
+
+
+location.reload();
+
+}
+
+
+
+    </script>
+
+<div>
+<div  id="gameuser"></div>
+<div style='display:block;height:66px;'></div>
+<div  id="gameuser2"></div>
+
+
+
+</div>
+
+
+

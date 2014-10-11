@@ -1,0 +1,21 @@
+<div class="onlineuserlistbg" >
+    <div ng-controller="HomeCtrl">
+        <div class="onlineuserlist-icon-left-button" ng-click="slidePage('/step3')" >
+           
+       </div>
+        <div class="onlineuserlist-icon-right-button" ng-click="slidePage('/viewuserlist')" >
+            
+        </div>
+    </div>
+    
+<div  ng-controller="GetUserListCtrl">
+    
+    <div><br>房间号:{{homenum}}</div>
+    <div style="margin-top:10px;"   ng-repeat="item in items">
+        {{item.username}}
+    <div>
+
+</div>
+
+
+</div>

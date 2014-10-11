@@ -1,0 +1,355 @@
+<html>
+    <body>
+        <head></head>
+        <script src="../jquery.js"></script>
+        <script>
+            //localStorage.g_gamenum = '6730';
+            //localStorage.g_userid = '4106';
+            
+            var g_timer;
+            $(document).ready(function(){
+                              
+                              onlineuser();
+                              g_timer = setInterval(function(){
+                                                    $(".userinfo").hide();
+                                                    $(".userinfo").empty();
+                                                    onlineuser();
+                                                    $(".userinfo").show(1000);
+                                                    
+                                                    },3000);
+                              
+                              
+                              });
+                              
+                              function exit(){
+                                  
+                                  clearInterval(g_timer);
+                                  var exiturl = "http://203.100.80.135:8080/JujuDemo/servlet/Exitgamehome?gamehomenum="+ localStorage.g_gamenum + "&id="+ localStorage.g_userid;
+                                  
+                                  //alert(exiturl);
+                                  htmlobj = $.ajax({url:exiturl,async:false});
+                                  $("#myDiv").html(htmlobj.responseText);
+                                  
+                                  history.go(-1);
+                                  
+                              }
+        
+        function onlineuser(){
+            
+            var onlineuser = 'http://203.100.80.135:8080/JujuDemo/servlet/Personnum?gamehomenum='+localStorage.g_gamenum;
+            //alert(onlineuser);
+            var userinfo ="<div class=userinfo>";
+            $.getJSON(
+                      onlineuser,
+                      function(data) {
+                      $.each(data.item17, function(i) {
+                             
+                             userinfo  += "<div>" + data.item17[i].username +"</div>";
+                             
+                             });
+                      userinfo  += "</div>";
+                      $(".userlist").append(userinfo);
+                      
+                      });
+                      
+                      
+                      
+        }
+        
+        
+        function startnophone(){
+            
+            clearInterval(g_timer);
+            $(".startbtn").hide();
+            $(".userlist").empty();
+            $(".gameoverbtn").show();
+            
+            $(".monkey1").fadeOut(1000);
+            
+            $(".monkey2").animate({left:'0px'});
+            $(".monkey2").fadeIn(500);
+            $(".monkey2").animate({left:'10px',opacity:'0.4'},"slow");
+            $(".monkey2").animate({left:'0px',opacity:'0.8'},"slow");
+            $(".monkey2").animate({left:'-10px',opacity:'0.4'},"slow");
+            $(".monkey2").animate({left:'0px',opacity:'0.8'},"slow");
+            
+            $(".monkey3").animate({left:'0px'},6000);
+            $(".monkey3").fadeIn(3000);
+
+            
+            
+            
+            
+            
+            
+            
+            var starturl= 'http://203.100.80.135:8080/JujuDemo/servlet/Getnophoneflag?gamehomenum='+localStorage.g_gamenum +'&nophoneflag=1';
+            
+            htmlobj = $.ajax({url:starturl,async:false});
+            $("#myDiv").html(htmlobj.responseText);
+            
+            var vtimer ="<input name='showtime' class=showtime id='showtime' disabled='disabled'  type='text' value='0时0分0秒'>";
+            
+            $(".userlist").append(vtimer);
+            startclock();
+            
+        }
+        
+        
+        
+        
+        function gameovernophone(){
+            
+            $(".gameoverbtn").hide();
+            $(".bottombg").hide();
+            $(".userlist").show();
+            $(".userlist").empty();
+            
+            
+            var stopurl= 'http://203.100.80.135:8080/JujuDemo/servlet/Getnophonecover?id='+localStorage.g_userid +'&gamehomenum='+localStorage.g_gamenum+'&nophonecover='+ h+":"+m+":"+s+":"+ss+"";
+            
+            htmlobj = $.ajax({url:stopurl,async:false});
+            $("#myDiv").html(htmlobj.responseText);
+            
+            userScore();
+            stopclock();
+            
+        }
+        
+        function userScore(){
+            
+            
+            var npscorelisturl = 'http://203.100.80.135:8080/JujuDemo/servlet/Sendnophonecover?gamehomenum='+ localStorage.g_gamenum;
+            
+            htmlobj = $.ajax({url:npscorelisturl,async:false});
+            $("#myDiv").html(htmlobj.responseText);
+            
+            var userinfo ="<div class=userinfo>";
+            $.getJSON(
+                      npscorelisturl,
+                      function(data) {
+                      $.each(data.item16, function(i) {
+                             
+                             userinfo  += "<div>" + data.item16[i].username +"</div>";
+                             userinfo  += "<div>" + data.item16[i].nophonecover +"</div>";
+                             
+                             });
+                      userinfo  += "</div>";
+                      $(".userlist").append(userinfo);
+                      
+                      });
+                      
+                      
+                      
+                      
+        }
+        
+        
+        var se,m=0,h=0,s=0,ss=1;
+        function second(){
+            
+            if((ss%100)==0){s+=1;ss=1;}
+            if(s>0 && (s%60)==0){m+=1;s=0;}
+            if(m>0 && (m%60)==0){h+=1;m=0;}
+            t=h+"时"+m+"分"+s+"秒"+ss+"毫秒";
+            document.getElementById("showtime").value=t;
+            ss+=1;
+            
+        }
+        function startclock(){se=setInterval("second()",1);}
+        function pauseclock(){clearInterval(se);}
+        function stopclock(){clearInterval(se);ss=1;m=h=s=0;}
+        
+            </script>
+        
+        <style>
+            
+            body{
+                
+                -moz-user-select: none; /*火狐*/
+                -webkit-user-select: none; /*webkit浏览器*/
+                -ms-user-select: none; /*IE10*/
+                -khtml-user-select: none; /*早期浏览器*/
+                user-select: none;
+                background-color:transparent;
+                text-shadow: 1px 1px  3px #000;
+            }
+        
+        #myDiv{
+            
+            display:none;
+            
+        }
+        
+        
+        .startbtn{
+            background-image: url("./img/start.PNG");
+            position:fixed;
+            bottom:0px;
+            left:120px;
+            width:86px;
+            height:48px;
+            z-index:20;
+            background-repeat:no-repeat;
+        }
+        
+        
+        .gameoverbtn{
+            background-image: url("./img/stop.png");
+            position:fixed;
+            bottom:0px;
+            left:120px;
+            width:86px;
+            height:48px;
+            z-index:20;
+            background-repeat:no-repeat;
+            display:none;
+        }
+        
+        .bottombg{
+            position:fixed;
+            bottom:0px;
+            left:0px;
+            width:320px;
+            height:48px;
+            padding:10px;
+            background-image: url("./img/bottom.PNG");
+            z-index:10;
+        }
+        .userlist{
+            width:318px;
+            height:150px;
+            position:fixed;
+            left:0px;
+            bottom:80px;
+            text-shadow: 1px 1px  2px #000;
+            font-size:14px;
+            text-align:center;
+            color:white;
+            overflow:auto;
+            color:white;
+            border:0px;
+        }
+        .monkey1{
+            background-image: url("./img/00000.PNG");
+            width:320px;
+            height:153px;
+            position:fixed;
+            left:0px;
+            bottom:240px;
+        }
+        
+        .monkey2{
+            background-image: url("./img/00001.png");
+            width:320px;
+            height:568px;
+            position:absolute;
+            left:320px;
+            bottom:0px;
+            display:none;
+            
+        }
+        
+        .monkey3{
+            background-image: url("./img/00002.png");
+            width:320px;
+            height:568px;
+            position:fixed;
+            left:320px;
+            bottom:0px;
+            display:none;
+            
+        }
+        
+        .monkey4{
+            background-image: url("./img/00003.png");
+            width:320px;
+            height:568px;
+            position:fixed;
+            left:320px;
+            bottom:0px;
+            
+        }
+        
+        .monkey5{
+            background-image: url("./img/00004.png");
+            width:320px;
+            height:568px;
+            position:fixed;
+            left:320px;
+            bottom:0px;
+            
+        }
+        
+        .monkey6{
+            background-image: url("./img/00005.png");
+            width:320px;
+            height:568px;
+            position:fixed;
+            left:320px;
+            bottom:0px;
+            display:none;
+        }
+        
+        .monkey7{
+            background-image: url("./img/00006.png");
+            width:320px;
+            height:568px;
+            position:fixed;
+            left:320px;
+            bottom:0px;
+            display:none;
+        }
+        
+        .banana{
+            
+            background-image: url("./img/nophone1.png");
+            width:185px;
+            height:137px;
+            position:fixed;
+            left:60px;
+            top:0px;
+        }
+        .exitnophone{
+            
+            background-image: url("./img/nophoneback.png");
+            width:42px;
+            height:26px;
+            position:fixed;
+            left:10px;
+            top:10px;
+            z-index:800;
+            
+        }
+        .showtime{
+            
+            
+            text-shadow: 1px 1px  2px #000;
+            font-size:14px;
+            text-align:center;
+            border:0px;
+            
+        }
+        
+            </style>
+        
+        <div class=exitnophone onclick=exit()></div>
+        
+        
+        <div class=banana></div>
+        
+        <div class=monkey1></div>
+        <div class=monkey2></div>
+        <div class=monkey3></div>
+        <div class=monkey4></div>
+        <div class=monkey5></div>
+        <div class=monkey6></div>
+        <div class=monkey7></div>
+        
+        
+        <div class=userlist>参与游戏用户列表</div>
+               
+        
+        <div id="myDiv"></div>
+    </body>
+</html>
