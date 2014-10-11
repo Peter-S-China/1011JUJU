@@ -10,22 +10,33 @@
 </div>
 
     
-<div class="anonymousarea" ng-controller="AnonymousChatCtrl">
+<div class="anonymousareabg" ng-controller="AnonymousChatCtrl">
     
-<div style="width:320px; height:98px;margin-top:5px;overflow:hidden;"  ng-click="gotochat()">
+    
+    
+    <iframe
+        allowtransparency="true"
+        style="background:transparent;border:0px;z-index:800;
+        position:absolute;left:40px;"
+        src="partials/chatcontent.html"
+        frameborder="no" border="0" marginwidth="0" marginheight="0" scrolling="no" allowtransparency="yes" height="80" width="240" >
+    </iframe>
+    
+<div style="
+    width:320px;
+    height:98px;
+    margin-top:5px;
+    overflow:hidden;
+   
+    z-index:900;
+    position:absolute;"  ng-click="gotochat()">
 
-
-
-<iframe ng-click="gotochat()"
-    allowtransparency="true"
-    style="background: transparent;border:0px;"
-    src="partials/chatcontent.html"
-   frameborder="no" border="0" marginwidth="0" marginheight="0" scrolling="no" allowtransparency="yes" height="80" width="200" ">
-</iframe>
 
 
 
 </div>
+
+
 </div>
 
 <div class="inggamearea" ng-controller="NavtoGameCtrl">
@@ -78,7 +89,7 @@
     <div class="topcoat-button-cbs" ng-click="">
     <span style="width:90px;display:block;margin-top:90px;"></span></div>
     
-</div>
+   </div>
 </div>
 
 

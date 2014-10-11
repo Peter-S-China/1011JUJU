@@ -668,10 +668,14 @@ function SendAnonymousMessageCtrl($scope, $rootScope,$location){
         if(!$scope.formData.s_message ){
         
         $scope.message ="匿名消息不能为空";
+            
+        navigator.notification.alert( $scope.message,function() {console.log(  $scope.message )},"匿名白板提示","确定");
         
         }else if($scope.formData.s_message.length > 10){
         
              $scope.message ="能少打点字么";
+            
+            navigator.notification.alert( $scope.message,function() {console.log(  $scope.message )},"匿名白板提示","确定");
         
         }else{
         
