@@ -1,20 +1,16 @@
 <div class="gamedatingbg">
 
 <div  ng-controller="LoginRoomCtrl">
- <lable  class="exithomebtn" ng-click="exhome()"></lable>
- 
-<lable class="viewalluser"
-        ng-click="slidePage('/viewuserlist','modal')">
-</lable>
+    
+ <span  class="exithomebtn" ng-click="exhome()"></span>
+ <span class="viewalluser"  ng-click="slidePage('/viewuserlist','modal')"></span>
     
 </div>
 
     
 <div class="anonymousareabg" ng-controller="AnonymousChatCtrl">
     
-    
-    
-    <iframe
+ <iframe
         allowtransparency="true"
         style="background:transparent;border:0px;z-index:800;
         position:absolute;left:40px;"
@@ -27,20 +23,14 @@
     height:98px;
     margin-top:5px;
     overflow:hidden;
-   
     z-index:900;
-    position:absolute;"  ng-click="gotochat()">
-
-
-
-
-</div>
+    position:absolute;"  ng-click="gotochat()"></div>
 
 
 </div>
 
-<div class="inggamearea" ng-controller="NavtoGameCtrl">
-
+<div  ng-controller="NavtoGameCtrl">
+<div class="inggamearea">
 <span  style="float:left;" ng-click="autoNewgame()">
 <img class=img2 src="{{newgameicon}}"/>
 </span>
@@ -54,42 +44,51 @@
 </span>
 
 </span>
+</div>
 
-
-
-
-
-
-<div class="gameiconarea" >
+    <div class="gameiconarea">
     
     <div class="topcoat-button-kill" ng-click="gotokill()">
-        <span style="width:90px;display:block;margin-top:90px;">杀人游戏</span></div>
+        <span style="width:90px;display:block;margin-top:90px;">杀人游戏</span>
+    </div>
     
     <div class="topcoat-button-whoiswo" ng-click="gotowhoiswo()">
-        <span style="width:90px;display:block;margin-top:90px;">谁是卧底</span></div>
+        <span style="width:90px;display:block;margin-top:90px;">谁是卧底</span>
+    </div>
     
     <div class="topcoat-button-nophone" ng-click="gotonophone()">
-        <span style="width:90px;display:block;margin-top:90px;">NOPHONE</span></div>
+        <span style="width:90px;display:block;margin-top:90px;">NOPHONE</span>
+    </div>
     
     <div class="topcoat-button-zf" ng-click="gotozf()">
-        <span style="width:90px;display:block;margin-top:90px;">知否</span></div>
+        <span style="width:90px;display:block;margin-top:90px;">知否</span>
+    </div>
     
     <div class="topcoat-button-dice" ng-click="gotodice()">
-        <span style="width:90px;display:block;margin-top:90px;">摇骰子</span></div>
+        <span style="width:90px;display:block;margin-top:90px;">摇骰子</span>
+    </div>
     
     <div class="topcoat-button-mora" ng-click="gotomora()">
-        <span style="width:90px;display:block;margin-top:90px;">猜拳</span></div>
+        <span style="width:90px;display:block;margin-top:90px;">猜拳</span>
+    </div>
     
     <div class="topcoat-button-jgch" ng-click="gotojgch()">
-        <span style="width:90px;display:block;margin-top:90px;">击鼓传花</span></div>
+        <span style="width:90px;display:block;margin-top:90px;">击鼓传花</span>
+    </div>
     
     <div class="topcoat-button-dmx" ng-click="slidePage('/dmxview')">
-        <span style="width:90px;display:block;margin-top:90px;">大冒险</span></div>
+        <span style="width:90px;display:block;margin-top:90px;">大冒险</span>
+    </div>
     
     <div class="topcoat-button-cbs" ng-click="">
-    <span style="width:90px;display:block;margin-top:90px;"></span></div>
+    <span style="width:90px;display:block;margin-top:90px;"></span>
+    </div>
+    
+    <span style="float:left;width:280px;display:block;height:20px;"> </span>
     
    </div>
+
+
 </div>
 
 

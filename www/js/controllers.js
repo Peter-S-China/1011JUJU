@@ -493,8 +493,9 @@ function GetUserListCtrl($scope, $rootScope) {
     
     console.log("------getuserlist------homenum"+ g_homenum);
     
-    $scope.homenum = g_homenum;
+    localStorage.g_homenum  = g_homenum;
     
+
     $rootScope.items = null;
    // load in data from hacker news unless we already have
     if (!$rootScope.items) {

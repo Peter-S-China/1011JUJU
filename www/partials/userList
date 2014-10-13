@@ -1,0 +1,116 @@
+<html>
+    <body>
+        <head></head>
+        <script src="./jquery.js"></script>
+        <script>
+            localStorage.g_homenum = '8395';
+            //localStorage.g_userid = '4106';
+            
+            var g_timer;
+            $(document).ready(function(){
+                              
+                              onlineuser();
+                              g_timer = setInterval(function(){
+                                                    $(".userinfo").hide();
+                                                    $(".userinfo").empty();
+                                                    onlineuser();
+                                                    $(".userinfo").show(1000);
+                                                    
+                                                    },3000);
+                              
+                              
+                              });
+                              
+        function exit(){
+                                  
+                   clearInterval(g_timer);
+          history.go(-1);
+          
+          
+                                  
+                              }
+        
+        function onlineuser(){
+            
+            var onlineuser = 'http://203.100.80.135:8080/JujuDemo/servlet/SendUserinfo?homenumber='+localStorage.g_homenum;
+            //alert(onlineuser);
+            var userinfo ="<div class=userinfo>";
+            $.getJSON(
+                      onlineuser,
+                      function(data) {
+                      $.each(data.item6, function(i) {
+                             
+                             userinfo  += "<div>" + data.item6[i].username +"</div>";
+                             
+                             });
+                      userinfo  += "</div>";
+                      $(".userlist").append(userinfo);
+                      
+                      });
+                      
+                      
+                      
+        }
+        
+        
+        
+      
+        
+            </script>
+        
+        <style>
+            
+            body{
+                
+                -moz-user-select: none; /*火狐*/
+                -webkit-user-select: none; /*webkit浏览器*/
+                -ms-user-select: none; /*IE10*/
+                -khtml-user-select: none; /*早期浏览器*/
+                user-select: none;
+                background-color:transparent;
+                text-shadow: 1px 1px  3px #000;
+            }
+        
+        #myDiv{
+            
+            display:none;
+            
+        }
+        
+        .userlist{
+            width:220px;
+            height:250px;
+            position:fixed;
+            left:0px;
+            top:30px;
+            text-shadow: 1px 1px  2px #000;
+            font-size:14px;
+            text-align:center;
+            overflow:auto;
+            color:white;
+            border:0px;
+            display:block;
+      
+            
+        }
+        .exit{
+            
+         position:fixed;
+         left:0px;
+         top:0px;
+         width:30px;
+         height:30px;
+         background-image:url("../img/exitroom.PNG");
+         background-repeat:no-repeat;
+        
+        }
+     
+            </style>
+        
+        <div class=exit onclick=exit()></div>
+        <div class=userlist>用户列表</div>
+        <div id="myDiv"></div>
+    
+    
+    </body>
+</html>
