@@ -160,9 +160,9 @@ $routeProvider.when('/killers9', {templateUrl: 'partials/killer/s9mview.html', c
 
 $routeProvider.when('/killers10', {templateUrl: 'partials/killer/s10mview.html', controller: 'HomeCtrl'});
              
-$routeProvider.when('/killers4', {templateUrl: 'partials/killer/s4mview.html', controller: 'HomeCtrl'});
 
-$routeProvider.when('/killers4', {templateUrl: 'partials/killer/s4mview.html', controller: 'HomeCtrl'});
+
+
              
     
              

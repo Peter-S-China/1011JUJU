@@ -9,14 +9,15 @@
         -khtml-user-select: none; /*早期浏览器*/
         user-select: none;
         background: transparent;
-         overflow: auto;
         
     }
 .userlist{
 
 font: 14px "Source Sans", helvetica, arial, sans-serif;
 margin-top:10px;
+
 }
+
 .fg{
 
 background-image:url("./img/FG.PNG");
@@ -91,7 +92,7 @@ margin-left:10px;
 <script>
     
     
-    
+    var g_timer;
     $(document).ready(function(){
                       $("#FG").click(function(){
                                        $(".panel1").slideToggle("slow");
@@ -106,7 +107,18 @@ margin-left:10px;
                                      $(".panel4").slideToggle("slow");
                                      });
                       
+                      
                       getgameuserlist();
+                      
+                      g_timer = setInterval(function(){
+                                            
+                                            $("#gameuser").empty();
+                                            
+                                            getgameuserlist();
+                                            
+                                            },5000);
+                      
+
                       
                       
                       });

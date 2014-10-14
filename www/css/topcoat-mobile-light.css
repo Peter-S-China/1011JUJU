@@ -1087,17 +1087,11 @@ background-repeat: no-repeat;
 }
 
 .killgamebg{
-
-margin: 0;
-padding: 0;
 background-image:url("../img/kill/killbg.png");
-
 width:320px;
 height:568px;
 background-repeat: no-repeat;
 display:block;
-
-
 
 
 }
@@ -1119,11 +1113,14 @@ background-image:url("../img/kill/nickname.PNG");
 }
 
 .playkillgame{
+
 float:left;
 width:132px;
 height:43px;
-margin-left:150px;
+margin-left:10px;
 background-image:url("../img/kill/startgame.PNG");
+display:block;
+
 
 }
 
@@ -1138,13 +1135,16 @@ background-image:url("../img/kill/fgqd.png");
 
 
 .fgql{
+
 float:left;
-width:280px;
+width:132px;
 height:43px;
 margin-left:10px;
 background-image:url("../img/kill/fgql.PNG");
-
 background-repeat: no-repeat;
+
+display:block;
+
 }
 
 .replaykillgame{
@@ -1200,11 +1200,12 @@ position: fixed;
 
 background-image:url("../img/kill/bottom.png");
 
-top:513px;
+bottom:-20px;
 left:0px;
 width:320px;
 height:55px;
 padding:10px;
+background-repeat:no-repeat;
 
 
 }
@@ -1628,7 +1629,7 @@ Navigation Bar
  margin-left:16px;
  text-align: center;
  width:300px;
- height:240px;
+ height:320px;
  overflow: auto;
  }
 

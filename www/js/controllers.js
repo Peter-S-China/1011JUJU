@@ -4184,7 +4184,13 @@ function killGamesetup1Ctrl($scope,$rootScope,$timeout,$location){
     $scope.killclose=function(){
     
         console.log('杀手闭眼');
-        $location.path("/killers5");
+        console.log('杀手杀人了么' + localStorage.gotonextstep);
+        
+        if(localStorage.gotonextstep == "YES"){
+           $location.path("/killers5");
+        
+        }
+        
     }
     
     $scope.policeopen = function(){
@@ -4201,7 +4207,13 @@ function killGamesetup1Ctrl($scope,$rootScope,$timeout,$location){
     $scope.policeclose=function(){
     
         console.log('警察闭眼');
-        $location.path("/killers8");
+        console.log('警察验人了么' + localStorage.gotonextstep);
+        
+        if(localStorage.gotonextstep == "YES"){
+            $location.path("/killers8");
+            
+        }
+
     }
     
     $scope.allopen = function(){
@@ -4247,42 +4259,58 @@ function killGamesetup2Ctrl($scope,$rootScope,$timeout,$location){
     console.log('>>>>>>获取用户ID==g_userid<<<<<<'+ g_userid);
     console.log('>>>>>>获取用户游戏编号<<<<<<'+ localStorage.g_gamenum);
     
+   
+    
+ 
+    
+    
+    
     $scope.gongtou = function(){
         
-        console.log('------公投完成------');
-        var gturl = g_baseurl +'/JujuDemo/servlet/Sendjudgekilllist?gamehomenum='+ localStorage.g_gamenum;
         
-        console.log(gturl);
-        console.log($rootScope.items);
+        console.log('>>>>>>大家公投了么<<<<<<'+ localStorage.gotonextstep);
         
-        $rootScope.items = null;
-        if (!$rootScope.items) {
-            jx.load(gturl,function(data){
-                    console.log(JSON.stringify(data));
-                    $rootScope.items = data.item23;
-                    
-                    console.log('公投结果' + $rootScope.items.length);
-                    
-                    if($rootScope.items.length == 1){
-                    
-                     $location.path('/killers9');
-                    
-                     }
-                    
+        if(localStorage.gotonextstep == "YES"){
+            
+            console.log('------公投完成------');
+            var gturl = g_baseurl +'/JujuDemo/servlet/Sendjudgekilllist?gamehomenum='+ localStorage.g_gamenum;
+            
+            console.log(gturl);
+            console.log($rootScope.items);
+            
+            $rootScope.items = null;
+            if (!$rootScope.items) {
+                jx.load(gturl,function(data){
+                        console.log(JSON.stringify(data));
+                        $rootScope.items = data.item23;
+                        
+                        console.log('公投结果' + $rootScope.items.length);
+                        
+                        if($rootScope.items.length == 1){
+                        
+                        $location.path('/killers9');
+                        
+                        }
+                        
+                        
+                        
+                        $scope.$apply();
+                        },'json');
                 
-                    
-                    $scope.$apply();
-                    },'json');
+            } else {
+                
+                console.log('BBBB');
+                
+            }
             
-        } else {
             
-            console.log('BBBB');
-        
+            
+            $location.path('/killers2');
+            
+            
         }
-
         
-        
-         $location.path('/killers2');
+       
         
         
     }

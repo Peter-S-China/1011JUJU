@@ -1,5 +1,8 @@
 <script src="../jquery.js"></script>
 <script>
+    
+    
+    localStorage.gotonextstep ="";
     $(document).ready(function(){
                       $("#FG").click(function(){
                                      $(".panel1").slideToggle("slow");
@@ -169,9 +172,13 @@ function reload(){
     
 }
 
-
+var k=0;
 function  gongtou(uid){
     
+    localStorage.gotonextstep ="YES";
+    k=k+1;
+    
+    if(k==1){
     var killuserurl = "http://203.100.80.135:8080/JujuDemo/servlet/Getkillvote?gamehomenum="+localStorage.g_gamenum +"&userid=" + uid ;
     //alert(killuserurl);
     
@@ -181,7 +188,13 @@ function  gongtou(uid){
            dataType: "script"
            });
            
-      $("#killicon"+ uid + "").remove();
+        $("#killicon"+ uid + "").remove();
+    }else{
+        
+        $(".showmessage").fadeIn(1000);
+        $(".showmessage").fadeOut(3000);
+        
+        }
 }
 
 </script>
@@ -359,7 +372,7 @@ z-index:100;
     color:white;
     padding-top:20px;
     background-color:black;
-    
+    height:32px;
 }
 
 .killicon{
@@ -374,11 +387,24 @@ margin-top:-30px;
 
 }
 
+.showmessage{
+    position:absolute;
+    display:none;
+    width:260px;
+    margin-left:10px;
+    padding:10px;
+    background-color:black;
+    color:white;
+    font: 14px "Source Sans", helvetica, arial, sans-serif;
+    z-index:200;
+    border-radius: 3px;
+}
+
 </style>
 
 <div  class="main">
 <div onclick="reload()">&nbsp;&nbsp;</div>
-
+<div  class=showmessage>一轮只能公投出一个参与者</div>
 
 <div id='JC' class=JC></div>
 <div id="jcuser" class='jclist'></div>

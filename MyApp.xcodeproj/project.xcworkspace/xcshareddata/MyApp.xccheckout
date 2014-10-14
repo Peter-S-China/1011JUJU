@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>IDESourceControlProjectFavoriteDictionaryKey</key>
+	<false/>
+	<key>IDESourceControlProjectIdentifier</key>
+	<string>C4EC9CB9-403F-4420-A395-3F2FCD6EF3E5</string>
+	<key>IDESourceControlProjectName</key>
+	<string>MyApp</string>
+	<key>IDESourceControlProjectOriginsDictionary</key>
+	<dict>
+		<key>0F9B9E72-33CE-4E1E-A84E-9089DF6E028A</key>
+		<string>https://github.com/Peter-S-China/1011JUJU.git</string>
+	</dict>
+	<key>IDESourceControlProjectPath</key>
+	<string>MyApp.xcodeproj/project.xcworkspace</string>
+	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
+	<dict>
+		<key>0F9B9E72-33CE-4E1E-A84E-9089DF6E028A</key>
+		<string>../..</string>
+	</dict>
+	<key>IDESourceControlProjectURL</key>
+	<string>https://github.com/Peter-S-China/1011JUJU.git</string>
+	<key>IDESourceControlProjectVersion</key>
+	<integer>110</integer>
+	<key>IDESourceControlProjectWCCIdentifier</key>
+	<string>0F9B9E72-33CE-4E1E-A84E-9089DF6E028A</string>
+	<key>IDESourceControlProjectWCConfigurations</key>
+	<array>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>0F9B9E72-33CE-4E1E-A84E-9089DF6E028A</string>
+			<key>IDESourceControlWCCName</key>
+			<string>1011JUJU</string>
+		</dict>
+	</array>
+</dict>
+</plist>
