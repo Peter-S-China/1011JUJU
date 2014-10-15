@@ -55,6 +55,7 @@
             $(".startbtn").hide();
             $(".userlist").empty();
             $(".gameoverbtn").show();
+            $(".main").show();
             
             $(".monkey1").fadeOut(1000);
             
@@ -94,6 +95,7 @@
             $(".userlist").show();
             $(".userlist").empty();
             $(".monkey1").fadeIn(1000);
+            $(".main").remove();
             
             var stopurl= 'http://203.100.80.135:8080/JujuDemo/servlet/Getnophonecover?id='+localStorage.g_userid +'&gamehomenum='+localStorage.g_gamenum+'&nophonecover='+ h+":"+m+":"+s+":"+ss+"";
             
@@ -299,6 +301,7 @@
             position:fixed;
             left:60px;
             top:0px;
+            z-index:100;
         }
         .exitnophone{
             
@@ -321,11 +324,25 @@
             
         }
         
+        .main{
+        top:30px;
+        left:0px;
+        position:relative;
+        color:white;
+        width:300px;
+        height:500px;
+        background-color:transparent;
+        z-index:200;
+        display:none;
+        
+        }
+        
             </style>
-        <body onclick=gameovernophone()>
+        <body >
             <head></head>
         <div class=exitnophone onclick=exit()></div>
         
+        <div onclick=gameovernophone() class=main></div>
         
         <div class=banana></div>
         
@@ -342,5 +359,8 @@
                
         
         <div id="myDiv"></div>
+        
+        
+        
     </body>
 </html>

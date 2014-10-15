@@ -277,9 +277,12 @@ function autostart(){
                           
                           alltimes = alltimes+1;
                           //alert(alltimes);
+                          
                           if(alltimes >= 10){
+                          
                           autostop();
                           $("#timers").fadeOut(1000);
+                          
                           var Gknowcover = "http://203.100.80.135:8080/JujuDemo/servlet/Getknowcover?gamehomenum="+ localStorage.g_gamenum + "&userid="+ localStorage.g_userid + "&answertrue="+ score +"&toaltcover="+ score*10 +"&totaltime="+ "100";
                           
                           //alert(Gknowcover);
@@ -331,7 +334,7 @@ function Sendknowcover(){
     
     
     S1endknowcover();
-    $(".phb").fadeOut(2000);
+    $(".phb").fadeOut(500);
     
     g_timer = setInterval(function(){
                           
@@ -339,9 +342,9 @@ function Sendknowcover(){
                           
                           S1endknowcover();
                           
-                          $(".phb").fadeOut(2000);
+                          $(".phb").fadeOut(500);
                           
-                          },4000);
+                          },1000);
                           
                           
 }

@@ -1151,8 +1151,9 @@ display:block;
 display:block;
 width:132px;
 height:43px;
-margin-left:90px;
+margin-left:20px;
 background-image:url("../img/kill/restartgame.PNG");
+float:left;
 }
 
 
@@ -2554,12 +2555,9 @@ float:left;
 
 background-image:url("../img/dmenu.PNG");
 background-repeat: no-repeat;
-width:155px;
-height:35px;
-
-
-
-margin-left:10px;
+width:65px;
+height:40px;
+margin-left:130px;
 
 
 }
@@ -2568,12 +2566,12 @@ margin-left:10px;
 background-image:url("../img/exitroom.PNG");
 background-repeat: no-repeat;
 
-width:47px;
-height:20px;
-margin-top:10px;
-margin-left:10px;
-
-float:left;
+width:18px;
+height:18px;
+top:154px;
+left:10px;
+display:block;
+position:fixed;
 
 }
 
