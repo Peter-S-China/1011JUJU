@@ -28,6 +28,8 @@
                   
                       $("#SSSL").fadeIn(3000);
                   
+                  
+                  
                   }else{
                   
                       $("#JCSL").fadeIn(3000);
@@ -70,22 +72,28 @@
         -ms-user-select: none; /*IE10*/
         -khtml-user-select: none; /*早期浏览器*/
         user-select: none;
-        overflow:auto;
+        overflow:hidden;
+        margin:0px;
+        padding:0px;
     }
 
 .main{
-    margin-top:-8px;
-    margin-left:-8px;
+    margin-top:-33px;
+    padding:0px;
+    
     width:320px;
     height:568px;
     background-image:url("./img/gameover.PNG");
     
+   
 }
 .c1{
-
+  
+    
     width:320px;
     height:568px;
     display:none;
+    
     
     background-image:url("./img/killercard.png");
 
@@ -98,6 +106,9 @@ background-repeat: no-repeat;
 width:320px;
 height:568px;
 background-position: 1em center;
+
+
+
 }
 .c2{
    
@@ -120,7 +131,6 @@ background-position: 1em center;
 </style>
 
 <div  class="main">
-    
 <div id="SSSL" class="c1"><div class="SSCC"></div></div>
 <div id="JCSL" class="c2"><div class="JCCC"></div></div>
     
