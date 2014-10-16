@@ -2294,6 +2294,7 @@ display:block;
 
   z-index:1;
   background-image: url("../img/dice/dicebg.png");
+  background-repeat: no-repeat;
   font: inherit;
   color: inherit;
   border: none;
@@ -2378,18 +2379,40 @@ display:block;
 
 }
 
-.dice-menu-bar-start{
+.dice-menu-bar-startn{
   background-image: url("../img/dice/roll.png");
   background-repeat: no-repeat;
-  z-index:999;
+  z-index:200;
   position:fixed;
   bottom:0;
   left:10px;
   width:220px;
  
   height:115px;
+ 
+  filter:alpha(opacity=50);  /*支持 IE 浏览器*/
+  -moz-opacity:0.50; /*支持 FireFox 浏览器*/
+  opacity:0.50;  /*支持 Chrome, Opera, Safari 等浏览器*/
 
 }
+
+.dice-menu-bar-start{
+  background-image: url("../img/dice/roll.png");
+  background-repeat: no-repeat;
+  z-index:200;
+  position:fixed;
+  bottom:0;
+  left:10px;
+  width:220px;
+ 
+  height:115px;
+ 
+
+
+}
+
+
+
 .dice-exitgame-btn{
 
   background-image: url("../img/dice/diceback.png");
@@ -2492,6 +2515,7 @@ height:30px;
 font: inherit;
 font-weight: 200;
 background: transparent;
+color:white;
 }
 
 .jgchbg{

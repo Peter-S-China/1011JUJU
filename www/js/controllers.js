@@ -2155,7 +2155,7 @@ function diceGamesetupbdxCtrl($scope,$rootScope,$location){
 
 //------摇骰子游戏创建者初始化游戏设置步骤2------
 
-function diceGamesetup2Ctrl($scope,$rootScope,$location){
+function diceGamesetup2Ctrl($scope,$rootScope,$location,$timeout){
     
     console.log('吹牛查看人数');
     console.log('>>>>>>获取用户ID==g_userid<<<<<<'+ g_userid);
@@ -2183,11 +2183,12 @@ function diceGamesetup2Ctrl($scope,$rootScope,$location){
     }
     
 
+    function countdown() {
+        $scope.onlinep();
+        $scope.timeout = $timeout(countdown, 3000);
+    }
     
-    $scope.onlinep();
-    $scope.onlinep();
-    $scope.onlinep();
-    
+    countdown();
     
    
     
@@ -2199,7 +2200,7 @@ function diceGamesetup2Ctrl($scope,$rootScope,$location){
         navigator.notification.vibrate(2000);
         navigator.notification.vibrate(3000);
         
-       
+        $timeout.cancel($scope.timeout);
     
         $location.path('/diceviewc2');
     
@@ -4764,6 +4765,9 @@ function knowjsetup1Ctrl($scope,$rootScope,$timeout,$location){
     localStorage.g_userid = g_userid;
     console.log('>>>>>>获取当前用户ID<<<<<<'+ localStorage.g_userid);
     console.log('>>>>>>获取当前游戏编号<<<<<<'+ localStorage.g_gamenum);
+     console.log('>>>>>>成功加入知否游戏<<<<<<');
+    
+    
 
 }
 

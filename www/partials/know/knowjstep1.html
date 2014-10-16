@@ -1,9 +1,10 @@
 <script src="../jquery.js"></script>
 <script>
     $(document).ready(function(){
-                       
+                      
                       
                       getuserlist();
+                      
                       g_timer = setInterval(function(){
                                             $(".userlist").fadeIn(1000);
                                             $(".userlist").fadeOut(1000);
@@ -11,11 +12,7 @@
                                             getuserlist();
                                             
                                             
-                                            getknowflag();
-                                            
-                                            
                                             },2000);
-                      
                       
                       
                       
@@ -129,7 +126,6 @@
                       
                       });
                       
-                      
                       function getknowflag(){
                           
                           var gkt = "http://203.100.80.135:8080/JujuDemo/servlet/Startknow?gamehomenum="+localStorage.g_gamenum;
@@ -158,7 +154,7 @@
                                            
                                            });
                                     
-                                 $(".questionarea").append(question);
+                                    $(".questionarea").append(question);
                                     
                                     
                                     if(question.length > 0){
@@ -172,13 +168,14 @@
                                     
                                     
                                     }
-
+                                    
                                     
                                     });
                                     
                                     
                                     
                       }
+
 
 function getuserlist(){
     var gul = "http://203.100.80.135:8080/JujuDemo/servlet/Underpersonlist?gamehomenum="+localStorage.g_gamenum;
@@ -277,12 +274,9 @@ function autostart(){
                           
                           alltimes = alltimes+1;
                           //alert(alltimes);
-                          
                           if(alltimes >= 10){
-                          
                           autostop();
                           $("#timers").fadeOut(1000);
-                          
                           var Gknowcover = "http://203.100.80.135:8080/JujuDemo/servlet/Getknowcover?gamehomenum="+ localStorage.g_gamenum + "&userid="+ localStorage.g_userid + "&answertrue="+ score +"&toaltcover="+ score*10 +"&totaltime="+ "100";
                           
                           //alert(Gknowcover);
@@ -334,7 +328,7 @@ function Sendknowcover(){
     
     
     S1endknowcover();
-    $(".phb").fadeOut(500);
+    $(".phb").fadeOut(2000);
     
     g_timer = setInterval(function(){
                           
@@ -342,9 +336,9 @@ function Sendknowcover(){
                           
                           S1endknowcover();
                           
-                          $(".phb").fadeOut(500);
+                          $(".phb").fadeOut(2000);
                           
-                          },1000);
+                          },4000);
                           
                           
 }
@@ -358,7 +352,7 @@ function S1endknowcover(){
               function(data) {
               $.each(data, function(i) {
                      
-                     userinfo += "<span class=phbitems>"+ i +</span>"+"<span class=phbitems>"+ " " +data[i].username + "</span><span class=phbitems> "+ data[i].toaltcover +" </span><span class=phbitems> "+ data[i].toalttime +"   "+" </span>";
+                     userinfo += "<span class=phbitems>"+ i +"</span>"+"<span class=phbitems>"+ " " +data[i].username + "</span><span class=phbitems> "+ data[i].toaltcover +" </span><span class=phbitems> "+ data[i].toalttime +"   "+" </span>";
                      
                      
                      
@@ -499,14 +493,7 @@ function S1endknowcover(){
     line-height: 20px;
     
 }
-#scorelist{
-    width:300px;
-    height:300px;
-    position:fixed;
-    left:10px;
-    top:150px;
-    
-}
+
 
 .questionopp{
     
@@ -544,11 +531,19 @@ function S1endknowcover(){
     margin-top:80px;
     margin-left:70px;
     display:none;
-    width:240px;
+    width:300px;
     height:200px;
     background-image:url(./img/phb.PNG);
     background-repeat: no-repeat;
     padding-top:80px;
+}
+#scorelist{
+    width:300px;
+    height:300px;
+    position:fixed;
+    left:10px;
+    top:150px;
+    
 }
 .phbitems{
     color:white;
@@ -590,6 +585,7 @@ function S1endknowcover(){
         
     </div>
 </div>
+
 
 
 
