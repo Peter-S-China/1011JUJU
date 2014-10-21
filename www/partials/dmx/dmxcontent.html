@@ -1,31 +1,29 @@
 <html>
 <body>
+
     <script src="../jquery.js"></script>
     <script>
         $(document).ready(function(){
                           
                           startgo();
-                          
                           getdmxcontent();
                           
-                          $("button").click(function(){
-                                            
-                                            location.reload();
-                                            
-                                            });
-                          
+       
                  
                           
                           });
 //默认启动
 function startgo(){
-$(".down").animate({top:'180px'},"slow");
-$(".down").fadeOut(3000);
 
-$(".left").animate({right:'100px'},2000);
-$(".left").fadeOut(3000);
-$(".right").animate({left:'100px'},2000);
-$(".right").fadeOut(3000);
+$(".left").animate({right:'100px'},1000);
+$(".left").fadeOut(2000);
+
+$(".right").animate({left:'100px'},1000);
+$(".right").fadeOut(2000);
+
+$(".down").animate({top:'180px'},1000);
+$(".down").fadeOut(2000);
+
 }
 
 function getdmxcontent(){
@@ -52,15 +50,18 @@ function getdmxcontent(){
               });
 }
     
-    function reload(){
+function reload(){
     
-    //location.reload();
+    location.reload();
     
-    $(".dmxcontent").empty();
+    //$(".dmxcontent").empty();
     
-    getdmxcontent();
+    //getdmxcontent();
+    
+     playAudio('./open.mp3');
     
     }
+    
 </script>
 <style>
     
@@ -71,25 +72,25 @@ function getdmxcontent(){
         -ms-user-select: none; /*IE10*/
         -khtml-user-select: none; /*早期浏览器*/
         user-select: none;
-        margin: 0;
-        padding: 0;
+        margin:0px;
+        padding:0px;
         
+        background-repeat:no-repeat;
     }
 
 .main{
     margin: 0;
     padding: 0;
-    background-image: url("./img/dmxcjj.png");
     font: 16px "Source Sans", helvetica, arial, sans-serif;
     font-weight: 200;
     text-rendering: optimizeLegibility;
     width:320px;
     height:620px;
     display: block;
-    margin: 0 auto;
+
     background-repeat:no-repeat;
     position:fixed;
-    z-index:100;
+    z-index:10;
 }
 
 .dmxbg{
@@ -102,7 +103,6 @@ function getdmxcontent(){
     width:320px;
     height:620px;
     display: block;
-    margin: 0 auto;
     background-repeat:no-repeat;
 }
 
@@ -119,8 +119,8 @@ function getdmxcontent(){
     display: block;
     
     background-repeat:no-repeat;
-    position:fixed;
- 
+    position:absolute;
+    z-index:10;
     
 }
 
@@ -137,7 +137,8 @@ function getdmxcontent(){
     display: block;
     margin: 0 auto;
     background-repeat:no-repeat;
-    position:fixed;
+    position:absolute;
+    z-index:10;
    
 }
 
@@ -152,18 +153,15 @@ function getdmxcontent(){
     width:320px;
     height:620px;
     display: block;
-    
     background-repeat:no-repeat;
-    position:fixed;
+    position:absolute;
+    z-index:10;
 }
 
 .dmxcontent{
-
-padding-top:200px;
-text-align:center;
-color:white;
-
-
+    padding-top:200px;
+    text-align:center;
+    color:white;
 }
 
 .dmxbutton{
@@ -172,32 +170,28 @@ color:white;
     height:43px;
     display: block;
     bottom:90px;
-    left:140px;
+    left:120px;
     background-repeat:no-repeat;
     position:fixed;
-    z-index:200;
-   
-   
+    z-index:300;
 }
+
+
 .dtitle{
-    
     background-image: url("./img/kuang.png");
     padding-top:20px;
     height:60px;
-   
     width:210px;
     margin-left:50px;
- 
     background-repeat:no-repeat;
     background-position:10px 0;
 }
+
 .dcontent{
-    
     padding-top:10px;
     padding-left:10px;
     padding-right:10px;
     padding-bottom:40px;
-    
     height:10px;
     width:200px;
     margin-left:50px;
@@ -206,28 +200,52 @@ color:white;
     background-repeat:no-repeat;
     background-position:10px 0;
     overflow:auto;
-    
- 
+    z-index:300;
+}
+.dmxdoor{
+  z-index:200;
+  display:block;
+  width:320px;
+  height:658px;
+  position:fixed;
+  background-image: url("./img/dmxcjj.png");
+  background-repeat:no-repeat;
 }
 </style>
+
+
+
+
 <div class='dmxbg'>
+
+
 <div class='main'>
+    
+    
+    <div class="dmxdoor" >
+    </div>
+    
+    <div id= 'left' class='left'>
+    </div>
+    
+    
+    <div class='right'>
+    </div>
+    
+    <div id='down' class='down'>
+    </div>
+
 </div>
 
-<div class='right'>
-</div>
-
-<div id= 'left' class='left'>
-</div>
-
-<div id='down' class='down'>
-</div>
 
 <div class="dmxcontent">
-
+    
 </div>
 
 </div>
+
+
+
 
 <div id="dmxbutton" class="dmxbutton" onclick="reload()">
     

@@ -4,18 +4,49 @@
         <script>
             $(document).ready(function(){
                               
+                              onlineuser();
                               setInterval(function(){btnshow();},1000);
                               
                               });
                               
                               function btnshow(){
                                   
+                                  $(".userinfo").remove();
+                                  onlineuser();
+                                  
                                   $(".flowershow").animate({left:'70px'});
                                   $(".flowershow").fadeIn(2000);
+                                  $(".flowershow").fadeOut(2000);
                                   
                                   
+                                
                                   
                               }
+        
+        
+        function onlineuser(){
+            
+            var onlineuser = 'http://203.100.80.135:8080/JujuDemo/servlet/Underpersonlist?gamehomenum='+localStorage.g_gamenum;
+            //alert(onlineuser);
+            var userinfo ="<div class=userinfo>";
+            $.getJSON(
+                      onlineuser,
+                      function(data) {
+                      $.each(data.item17, function(i) {
+                             
+                             userinfo  += "<div>" + data.item17[i].username +"</div>";
+                             
+                             });
+                      userinfo  += "</div>";
+                      $(".userlist").append(userinfo);
+                      
+                      });
+                      
+                      
+                      
+        }
+        
+
         
             </script>
     </head>
@@ -73,6 +104,18 @@
         width:320px;
     }
     
+    .userlist{
+     
+       color:white;
+       text-shadow: 1px 1px  3px #000;
+       position:fixed;
+
+       width:320px;
+       height:200px;
+       top:60px;
+       text-align:center;
+    
+    }
     
     
         </style>
@@ -81,6 +124,8 @@
         
         
         <div class="jgchcontent">
+            
+            <div class="userlist"></div>
             
             <div class="flowershow">
                 

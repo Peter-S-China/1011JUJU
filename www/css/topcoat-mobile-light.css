@@ -2561,14 +2561,13 @@ left:86px;
 
 }
 .jgchcbtnk{
-margin: 0;
-padding: 0;
+
 background-image:url("../img/jgch/kaishi.PNG");
 background-repeat: no-repeat;
 display:block;
 width:141px;
 height:142px;
-position:fixed;
+position:absolute;
 bottom:0px;
 left:86px;
 
