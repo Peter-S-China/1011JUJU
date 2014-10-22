@@ -157,7 +157,7 @@
         [localNotification setAlertAction:@"重新打开"];
         [localNotification setHasAction:YES];
         [[UIApplication sharedApplication] scheduleLocalNotification:localNotification];
-        exit(0);
+        //exit(0);
 }
 - (void)applicationWillEnterForeground:(UIApplication *)application
     {

@@ -86,7 +86,7 @@
     
     height:500px;
     overflow:auto;
-    display:none;
+    display:block;
     
     }
         </style>
@@ -113,8 +113,13 @@
                        
       });
                
-            getuserlist();                   
-            setInterval(function(){cccccc();},3000);
+            getuserlist();
+            reloaduserlist()
+            setInterval(function(){
+                    
+                        cccccc();
+                        
+                        },3000);
                              
                         
                         
@@ -122,7 +127,7 @@
                         
         function cccccc(){
                         
-                        $("#userinfo").remove();
+                        $("#gameinfo").empty();
                         reloaduserlist();
                        
                         
@@ -134,8 +139,7 @@ function getuserlist(){
                             
 var jcontact = "http://203.100.80.135:8080/JujuDemo/servlet/Sendsingleundercover?gamehomenum=" + localStorage.g_gamenum + "&userid="+localStorage.g_userid;
                             
-//var jcontact = "http://203.100.80.135:8080/JujuDemo/servlet/Sendsingleundercover?gamehomenum=4073&userid=1393";
-                            
+
                             var userinfo ="<div id= 'userddd' >";
                             $.getJSON(
                                       jcontact,
